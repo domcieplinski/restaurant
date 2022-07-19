@@ -27,15 +27,12 @@ public class Menu {
 
         RestaurantName.setText(pref.get("title", "root"));
         frame = new JFrame(pref.get("title", "root"));
-
         frame.setDefaultCloseOperation(3);
-        System.out.println("test");
         frame.setPreferredSize(new Dimension(900, 700));
         frame.setResizable(false);
         frame.pack();
         frame.add(mainPanel);
         frame.setVisible(true);
-
 
 
         SettingsButton.addActionListener(new ActionListener() {

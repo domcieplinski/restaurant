@@ -3,13 +3,19 @@ package gui;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.prefs.Preferences;
 
 public class Tables  {
+    private JFrame tablesView;
+    Preferences pref = Preferences.userNodeForPackage(Settings.class);
+    private int tables_amount = Integer.parseInt(pref.get("tables_amount", "root"));
     public Tables() {
-        JFrame tablesView = new JFrame("Tables");
-        tablesView.setBounds(300, 320, 300, 200);
+
+        tablesView = new JFrame("Tables");
+        tablesView.setBounds(200, 220, 700, 500);
         tablesView.setDefaultCloseOperation(2);
         tablesView.setVisible(true);
+
 
         tablesView.addWindowListener(new WindowAdapter() {
             @Override

@@ -49,7 +49,7 @@ public class Settings {
                     pref.put("title", setCompanyName_TextField.getText());
                 }
                 if(!tablesAmount_TextField.getText().isEmpty()){
-
+                    pref.put("tables_amount", tablesAmount_TextField.getText());
                 }
             }
         });
