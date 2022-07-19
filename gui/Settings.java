@@ -22,8 +22,6 @@ public class Settings {
 
 
     public Settings() {
-
-
         ramka = new JFrame("Settings");
 
         ramka.setBounds(100,100,500,500);
@@ -39,11 +37,28 @@ public class Settings {
         panel.add(tablesAmount_TextField);
         ramka.add(setButton, BorderLayout.SOUTH);
 
+        ramka.setVisible(true);
 
-        setButton.addActionListener(
-                new setNumberOfChair()
-        );
+        /*  ActionListener for "Set" button. It checks whether text field is empty or not. If not then it sets
+            this text to preferences (java.util.prefs).
+        */
+        setButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!setCompanyName_TextField.getText().isEmpty()){
+                    pref.put("title", setCompanyName_TextField.getText());
+                }
+                if(!tablesAmount_TextField.getText().isEmpty()){
 
+                }
+            }
+        });
+        /*
+            Listening to Settings frame - if it gets closed, Status_Settings.status changes statement to
+            true, so it means, that this frame can be opened again from Menu.
+            On the other hand, if Status_Settings.status if false, then it blocks from opening second
+            frame (only one can be visible at a time).
+         */
         ramka.addWindowListener(new WindowAdapter (){
             @Override
             public void windowClosing(WindowEvent e){
@@ -52,19 +67,7 @@ public class Settings {
                 ramka.dispose();
             }
         });
-        ramka.setVisible(true);
     }
-
-    private class setNumberOfChair implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String amount = setCompanyName_TextField.getText();
-            pref.put("title", amount);
-        }
-
-    }
-
-
 
     public class Status_Settings {
         public static boolean status = true;

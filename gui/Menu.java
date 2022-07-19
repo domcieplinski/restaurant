@@ -25,8 +25,6 @@ public class Menu {
 
     public Menu() {
 
-
-        //pref.put("title", "Pizza Romas");
         RestaurantName.setText(pref.get("title", "root"));
         frame = new JFrame(pref.get("title", "root"));
 
