@@ -6,11 +6,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
 
-public class Tables  {
+public class Room {
     private JFrame tablesView;
     private int tables_amount;
 
-    public Tables() {
+    public Room() {
 
         try{
             Preferences pref = Preferences.userNodeForPackage(Settings.class);
@@ -19,7 +19,7 @@ public class Tables  {
             tables_amount = 1;
         }
 
-        tablesView = new JFrame("Tables");
+        tablesView = new JFrame("Room");
         tablesView.setBounds(200, 220, 700, 500);
 
         JPanel panel = new JPanel(new GridLayout(tables_amount/2,tables_amount/2,4,4));

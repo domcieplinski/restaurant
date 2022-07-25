@@ -50,9 +50,9 @@ public class Menu {
         MainView.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Tables.Status_Tables.status == true) {
-                    Tables tables = new Tables();
-                    Tables.Status_Tables.status = false;
+                if (Room.Status_Tables.status == true) {
+                    Room room = new Room();
+                    Room.Status_Tables.status = false;
                 }else {
                     error();
                 }
