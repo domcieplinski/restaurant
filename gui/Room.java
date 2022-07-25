@@ -2,6 +2,8 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
@@ -9,6 +11,8 @@ import java.util.prefs.Preferences;
 public class Room {
     private JFrame tablesView;
     private int tables_amount;
+    static JButton[] button;
+
 
     public Room() {
 
@@ -23,11 +27,23 @@ public class Room {
         tablesView.setBounds(200, 220, 700, 500);
 
         JPanel panel = new JPanel(new GridLayout(tables_amount/2,tables_amount/2,4,4));
-        for(int i = 1 ; i <= tables_amount; i++){
-            JButton test = new JButton("test");
-            test.setPreferredSize(new Dimension(20,20));
-            panel.add(test);
+        button = new JButton[tables_amount];
+        Table[] table = new Table[tables_amount];
+        for(int i = 0 ; i < tables_amount; i++){
+            final int number = i;
+            button[i] = new JButton(String.valueOf(i));
+            button[i].setPreferredSize(new Dimension(20,20));
+            button[i].setText("Table " + (i+1));
+            panel.add(button[i]);
+            button[i].addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Table table = new Table(number);
+                }
+            });
         }
+
+
         tablesView.setContentPane(panel);
         tablesView.setDefaultCloseOperation(2);
         tablesView.setVisible(true);
@@ -40,6 +56,9 @@ public class Room {
                 tablesView.dispose();
             }
         });
+    }
+    public static void button_Color(int number){
+        button[number].setBackground(Color.RED);
     }
 
     public class Status_Tables {
