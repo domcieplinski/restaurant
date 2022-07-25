@@ -7,15 +7,21 @@ import java.util.prefs.Preferences;
 
 public class Tables  {
     private JFrame tablesView;
-    Preferences pref = Preferences.userNodeForPackage(Settings.class);
-    private int tables_amount = Integer.parseInt(pref.get("tables_amount", "root"));
+    private int tables_amount;
+
     public Tables() {
+
+        try{
+            Preferences pref = Preferences.userNodeForPackage(Settings.class);
+            tables_amount = Integer.parseInt(pref.get("tables_amount", "root"));
+        } catch(NumberFormatException e){
+            tables_amount = 1;
+        }
 
         tablesView = new JFrame("Tables");
         tablesView.setBounds(200, 220, 700, 500);
         tablesView.setDefaultCloseOperation(2);
         tablesView.setVisible(true);
-
 
         tablesView.addWindowListener(new WindowAdapter() {
             @Override
