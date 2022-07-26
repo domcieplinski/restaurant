@@ -11,7 +11,7 @@ import java.util.prefs.Preferences;
 public class Room {
     private JFrame tablesView;
     private int tables_amount;
-    static JButton[] button;
+    private static JButton[] button;
 
 
     public Room() {
@@ -59,6 +59,8 @@ public class Room {
     }
     public static void button_Color(int number){
         button[number].setBackground(Color.RED);
+        button[number].setOpaque(true);
+        button[number].setBorderPainted(false);
     }
 
     public class Status_Tables {

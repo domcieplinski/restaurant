@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Table {
-    private int number = 0;
+import static gui.Guest.guest;
+
+public class Table{
+    static int number;
     private boolean isOccupied = false;
     private JButton addGuest = new JButton("Add Guest");
     private JFrame frame;
@@ -14,15 +16,18 @@ public class Table {
     public Table(int number){
         this.number = number;
 
-        frame = new JFrame(String.valueOf(number));
+        frame = new JFrame("Table " + String.valueOf(number));
         frame.setBounds(100,100,500,500);
         frame.setDefaultCloseOperation(2);
         frame.add(addGuest);
+
         addGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                isOccupied = true;
+                guest[number] = new Guest();
+                Guest.setActive(number);
                 Room.button_Color(number);
+
 
             }
         });
