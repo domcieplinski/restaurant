@@ -28,7 +28,13 @@ public class Menu {
         RestaurantName.setText(pref.get("title", "root"));
         frame = new JFrame(pref.get("title", "root"));
         frame.setDefaultCloseOperation(3);
-        frame.setPreferredSize(new Dimension(900, 700));
+
+        // Getting screen size = dynamic sizes of Menu frame
+        final double width = Toolkit.getDefaultToolkit().getScreenSize().width/2;
+        final double height = (Toolkit.getDefaultToolkit().getScreenSize().height)*(0.7);
+
+        frame.setPreferredSize(new Dimension((int)width, (int)height));
+        
         frame.setResizable(false);
         frame.pack();
         frame.add(mainPanel);

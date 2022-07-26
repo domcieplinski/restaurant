@@ -24,7 +24,7 @@ public class Room {
         }
 
         tablesView = new JFrame("Room");
-        tablesView.setBounds(200, 220, 700, 500);
+        tablesView.setBounds(200, 220, Toolkit.getDefaultToolkit().getScreenSize().width/2, (Toolkit.getDefaultToolkit().getScreenSize().height/2));
 
         JPanel panel = new JPanel(new GridLayout(tables_amount/2,tables_amount/2,4,4));
         button = new JButton[tables_amount];
