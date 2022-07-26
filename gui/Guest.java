@@ -15,6 +15,6 @@ public class Guest{
 
     static boolean setActive(int number){
         System.out.println("Jestem w srodku w gosciu nr : " + number);
-        return guest[number].active = true;
+        return guest[number].active;
     }
 }
