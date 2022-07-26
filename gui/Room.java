@@ -28,7 +28,7 @@ public class Room {
 
         JPanel panel = new JPanel(new GridLayout(tables_amount/2,tables_amount/2,4,4));
         button = new JButton[tables_amount];
-        Table[] table = new Table[tables_amount];
+
         for(int i = 0 ; i < tables_amount; i++){
             final int number = i;
             button[i] = new JButton(String.valueOf(i));
