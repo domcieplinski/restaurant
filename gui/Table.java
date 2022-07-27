@@ -9,6 +9,7 @@ import static gui.Guest.guest;
 public class Table {
     static int number;
     private JButton addGuest = new JButton("Add Guest");
+    private JButton removeGuest = new JButton("Remove Guest");
     private JFrame frame;
 
     public Table(int number) {
@@ -17,22 +18,51 @@ public class Table {
         frame = new JFrame("Table " + number);
         frame.setBounds(100, 100, 500, 500);
         frame.setDefaultCloseOperation(2);
-        if (Guest.guest[number] == null) {
-            frame.add(addGuest);
-            addGuest.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    guest[number] = new Guest();
-                    guest[number].active = true;
-                    Room.button_Color(number);
+        frame.add(addGuest);
+        addGuest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newGuest();
+            }
+        });
 
-                    // Refreshing frame - to delete "Add Guest" button"
-                    frame.getContentPane().removeAll();
-                    frame.revalidate();
-                    frame.repaint();
-                }
-            });
-        }
+
         frame.setVisible(true);
+    }
+
+
+    public void newGuest() {
+
+        guest[number] = new Guest();
+        guest[number].active = true;
+        Room.button_Color(number, true);
+        frame.getContentPane().removeAll();
+        frame.add(removeGuest);
+        frame.revalidate();
+        frame.repaint();
+        removeGuest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                removeGuest();
+            }
+        });
+
+
+    }
+
+    public void removeGuest() {
+        guest[number].active = false;
+        Room.button_Color(number, false);
+        frame.getContentPane().removeAll();
+        frame.add(addGuest);
+        frame.revalidate();
+        frame.repaint();
+        addGuest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newGuest();
+            }
+        });
     }
 }

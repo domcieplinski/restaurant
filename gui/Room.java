@@ -57,8 +57,11 @@ public class Room {
             }
         });
     }
-    public static void button_Color(int number){
-        button[number].setBackground(Color.RED);
+    public static void button_Color(int number, boolean active){
+        if(active == true)
+            button[number].setBackground(Color.RED);
+        else
+            button[number].setBackground(Color.WHITE);
         button[number].setOpaque(true);
         button[number].setBorderPainted(false);
     }
