@@ -18,11 +18,21 @@ public class Table {
         frame = new JFrame("Table " + number);
         frame.setBounds(100, 100, 500, 500);
         frame.setDefaultCloseOperation(2);
-        frame.add(addGuest);
+        if(guest[number] == null)
+            frame.add(addGuest);
+        else
+            frame.add(removeGuest);
         addGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 newGuest();
+            }
+        });
+
+        removeGuest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeGuest();
             }
         });
 

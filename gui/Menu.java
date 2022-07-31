@@ -1,77 +1,30 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.prefs.Preferences;
-
-
-import static javax.swing.JOptionPane.showMessageDialog;
-
 
 public class Menu {
-    private JPanel mainPanel;
-    private JMenu File;
-    private JMenuItem NewFile;
-    private JButton button1;
-    private JButton button4;
-    private JButton MainView;
-    private JButton SettingsButton;
-    private JLabel RestaurantName;
-    private JFrame frame;
-    Preferences pref = Preferences.userNodeForPackage(Settings.class);
+    private JPanel jpanel;
+    private JPanel mainJPanel;
+    private JPanel detailsJPanel;
+    private JLabel idLabel;
+    private JLabel nameLabel;
+    private JLabel typeLabel;
+    private JComboBox comboBox1;
+    private JTextField textField1;
+    private JLabel priceLabel;
+    private JTextField textField2;
+    private JLabel priceGrossLabel;
+    private JButton addButton;
+    private JButton clearButton;
+    private JPanel tablePanel;
+    private JTable table1;
+    private JFrame jframe;
 
-
-    public Menu() {
-
-        RestaurantName.setText(pref.get("title", "root"));
-        frame = new JFrame(pref.get("title", "root"));
-        frame.setDefaultCloseOperation(3);
-
-        // Getting screen size = dynamic sizes of Menu frame
-        final double width = Toolkit.getDefaultToolkit().getScreenSize().width/2;
-        final double height = (Toolkit.getDefaultToolkit().getScreenSize().height)*(0.7);
-
-        frame.setPreferredSize(new Dimension((int)width, (int)height));
-        
-        frame.setResizable(false);
-        frame.pack();
-        frame.add(mainPanel);
-        frame.setVisible(true);
-
-
-        SettingsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Settings.Status_Settings.status == true) {
-                    Settings settings = new Settings();
-                    Settings.Status_Settings.status = false;
-                }else {
-                    error();
-                }
-            }
-        });
-
-        MainView.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Room.Status_Tables.status == true) {
-                    Room room = new Room();
-                    Room.Status_Tables.status = false;
-                }else {
-                    error();
-                }
-            }
-        });
-
+    Menu() {
+        jframe = new JFrame("Testujemy Menu");
+        jframe.setDefaultCloseOperation(2);
+        jframe.setVisible(true);
+        jframe.add(jpanel);
+        jframe.setBounds(200,200,600,400);
     }
-
-    private void error() {
-        showMessageDialog(null, "You have already opened this window!");
-    }
-
-
-
 }
-
