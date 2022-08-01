@@ -62,8 +62,8 @@ public class Room {
             button[number].setBackground(Color.RED);
         else
             button[number].setBackground(Color.WHITE);
-        button[number].setOpaque(true);
-        button[number].setBorderPainted(false);
+            button[number].setOpaque(true);
+            button[number].setBorderPainted(false);
     }
 
     public class Status_Tables {
