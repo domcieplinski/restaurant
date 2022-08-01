@@ -17,7 +17,7 @@ public class Menu {
     private JButton addButton;
     private JButton clearButton;
     private JPanel tablePanel;
-    private JTable table1;
+    private JTable table;
     private JFrame jframe;
 
     Menu() {
