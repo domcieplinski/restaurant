@@ -1,10 +1,7 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 public class Menu {
     private JPanel jpanel;
@@ -22,6 +19,7 @@ public class Menu {
     private JButton clearButton;
     private JPanel tablePanel;
     private JTable table;
+    private JLabel priceGross;
     private JFrame jframe;
 
     Menu() {
@@ -35,35 +33,55 @@ public class Menu {
         jframe.setDefaultCloseOperation(2);
         jframe.setVisible(true);
         jframe.add(jpanel);
-        jframe.setBounds(200,200,600,400);
+        jframe.setBounds(200, 200, 600, 400);
 
 
         /* Adding KeyListener for Enter. Inserting new values in "Price net" and clicking Enter
            causes that there automatically appear value in "Price gross"
         */
-        
-        priceNet.addKeyListener(new KeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e)
-            {
+        priceNet.addFocusListener(new FocusListener() {
+                                      @Override
+                                      public void focusGained(FocusEvent e) {
 
-                if (e.getKeyCode() == KeyEvent.VK_ENTER)
-                {
-                    System.out.println("Test");
-                }
-            }
-            public void keyReleased(KeyEvent e)
-            {
-                //code.
-            }
-            public void keyTyped(KeyEvent e)
-            {
-                //code.
-            }});
+                                      }
+
+                                      @Override
+                                      public void focusLost(FocusEvent e) {
+                                          try {
+                                              double priceNets = Double.parseDouble(priceNet.getText());
+                                              double priceGrosss = priceNets * 1.22;
+                                              priceGross.setText(String.valueOf(priceGrosss));
+                                          } catch (NumberFormatException f) {
+                                              priceGross.setText("Wrong input in Price Net field!");
+                                          }
+
+                                      }
+                                  });
+                priceNet.addKeyListener(new KeyListener() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                            try {
+                                double priceNets = Double.parseDouble(priceNet.getText());
+                                double priceGrosss = priceNets * 1.22;
+                                priceGross.setText(String.valueOf(priceGrosss));
+                            } catch (NumberFormatException f) {
+                                priceGross.setText("Wrong input in Price Net field!");
+                            }
+                        }
+                    }
+
+                    public void keyReleased(KeyEvent e) {
+                        //code.
+                    }
+
+                    public void keyTyped(KeyEvent e) {
+                        //code.
+                    }
+                });
 
 
-
-
-       // comboBox1.addActionListener(this);
+        // comboBox1.addActionListener(this);
     }
 }
