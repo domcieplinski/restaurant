@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.prefs.Preferences;
 
 public class Menu {
     private JPanel jpanel;
@@ -21,6 +22,8 @@ public class Menu {
     private JTable table;
     private JLabel priceGross;
     private JFrame jframe;
+
+    Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
     Menu() {
 
@@ -49,7 +52,9 @@ public class Menu {
                                       public void focusLost(FocusEvent e) {
                                           try {
                                               double priceNets = Double.parseDouble(priceNet.getText());
-                                              double priceGrosss = priceNets * 1.22;
+                                              double tax = Double.parseDouble(pref.get("tax", "root"));
+                                              tax = (100+tax)/100;
+                                              double priceGrosss = priceNets * tax;
                                               priceGross.setText(String.valueOf(priceGrosss));
                                           } catch (NumberFormatException f) {
                                               priceGross.setText("Wrong input in Price Net field!");

@@ -16,6 +16,8 @@ public class Settings {
     private JLabel tablesAmount_Label = new JLabel("Number of tables in restaurant : ");
     private JLabel setCompanyName_Label = new JLabel("Restaurant name : ");
     private JTextField setCompanyName_TextField = new JTextField();
+    private JLabel taxLabel = new JLabel("Tax value (%) : ");
+    private JTextField tax_TextField = new JTextField();
     private JPanel panel = new JPanel();
     private JFrame ramka;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
@@ -29,12 +31,15 @@ public class Settings {
 
         ramka.add(panel);
 
-        panel.setLayout( new GridLayout(2, 2) );  // 4x3 Grid
+        panel.setLayout( new GridLayout(3, 2) );
         panel.add(setCompanyName_Label);
         panel.add(setCompanyName_TextField);
 
         panel.add(tablesAmount_Label);
         panel.add(tablesAmount_TextField);
+
+        panel.add(taxLabel);
+        panel.add(tax_TextField);
         ramka.add(setButton, BorderLayout.SOUTH);
 
         ramka.setVisible(true);
@@ -50,6 +55,9 @@ public class Settings {
                 }
                 if(!tablesAmount_TextField.getText().isEmpty()){
                     pref.put("tables_amount", tablesAmount_TextField.getText());
+                }
+                if(!tax_TextField.getText().isEmpty()){
+                    pref.put("tax", tax_TextField.getText());
                 }
             }
         });
