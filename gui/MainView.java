@@ -77,7 +77,5 @@ public class MainView {
         showMessageDialog(null, "You have already opened this window!");
     }
 
-
-
 }
 
