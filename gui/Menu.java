@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.util.prefs.Preferences;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class Menu {
     private JPanel jpanel;
     private JPanel mainJPanel;
@@ -12,8 +14,8 @@ public class Menu {
     private JLabel idLabel;
     private JLabel nameLabel;
     private JLabel typeLabel;
-    private JComboBox comboBox1;
-    private JTextField textField1;
+    private JComboBox comboBox;
+    private JTextField nameField;
     private JLabel priceLabel;
     private JTextField priceNet;
     private JLabel priceGrossLabel;
@@ -22,8 +24,9 @@ public class Menu {
     private JPanel tablePanel;
     private JTable table;
     private JLabel priceGross;
-    private JScrollPane test;
+    private JScrollPane scrollPane;
     private JFrame jframe;
+    int i = 1;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
     Menu() {
@@ -36,11 +39,11 @@ public class Menu {
         model.addColumn("Price");
         table.setModel(model);
 
-        comboBox1.addItem("Soups");
-        comboBox1.addItem("Appetizers");
-        comboBox1.addItem("Pizza");
-        comboBox1.addItem("Fast Food");
-        comboBox1.addItem("Drinks");
+        comboBox.addItem("Soups");
+        comboBox.addItem("Appetizers");
+        comboBox.addItem("Pizza");
+        comboBox.addItem("Fast Food");
+        comboBox.addItem("Drinks");
 
         jframe = new JFrame("Restaurant Menu");
 
@@ -49,8 +52,8 @@ public class Menu {
 
         jframe.add(jpanel);
         jframe.setBounds(200, 200, 600, 400);
-        test.setViewportView(table);
-        
+        scrollPane.setViewportView(table);
+
 
         /* Adding KeyListener for Enter. Inserting new values in "Price net" and clicking Enter
            causes that there automatically appear value in "Price gross"
@@ -84,6 +87,20 @@ public class Menu {
 
 
         // comboBox1.addActionListener(this);
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(nameField.getText().equals("") || priceNet.getText().equals("")){
+                    showMessageDialog(null,"Field cannot be empty!");
+                }
+                else{
+                    String data[] = {String.valueOf(i), nameField.getText(), comboBox.getSelectedItem().toString(), priceNet.getText()};
+                    i++;
+                    model.addRow(data);
+                }
+
+            }
+        });
     }
 
     private void PriceNetToGross(){
