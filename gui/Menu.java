@@ -1,8 +1,13 @@
 package gui;
 
+import javax.management.BadStringOperationException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.prefs.Preferences;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -25,6 +30,7 @@ public class Menu {
     private JTable table;
     private JLabel priceGross;
     private JScrollPane scrollPane;
+    private JLabel showingId;
     private JFrame jframe;
     int i = 1;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
@@ -45,6 +51,9 @@ public class Menu {
         comboBox.addItem("Fast Food");
         comboBox.addItem("Drinks");
 
+
+
+
         jframe = new JFrame("Restaurant Menu");
 
         jframe.setDefaultCloseOperation(2);
@@ -53,6 +62,8 @@ public class Menu {
         jframe.add(jpanel);
         jframe.setBounds(200, 200, 600, 400);
         scrollPane.setViewportView(table);
+
+        showingId.setText(String.valueOf(i));
 
 
         /* Adding KeyListener for Enter. Inserting new values in "Price net" and clicking Enter
@@ -90,28 +101,45 @@ public class Menu {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(nameField.getText().equals("") || priceNet.getText().equals("")){
+
+                if(nameField.getText().equals("") || priceNet.getText().equals("") || !PriceNetToGross()){
                     showMessageDialog(null,"Field cannot be empty!");
                 }
                 else{
-                    String data[] = {String.valueOf(i), nameField.getText(), comboBox.getSelectedItem().toString(), priceNet.getText()};
+                    String index = String.valueOf(i);
+                    String name = nameField.getText();
+                    String type = comboBox.getSelectedItem().toString();
+                    Double price = Double.parseDouble(priceNet.getText());
+                    String[] data = {index, name, type, priceNet.getText()};
+                    try {
+                        PrintWriter savingToFile = new PrintWriter(new FileWriter("data.dat", true));
+                        savingToFile.println(index + "|" + name + "|" + type + "|" + price);
+                        savingToFile.close();
+                    }catch(IOException c){
+                        showMessageDialog(null, "Problem with a file opening!");
+                    }
+
                     i++;
+                    showingId.setText(String.valueOf(i));
                     model.addRow(data);
+
                 }
 
             }
         });
     }
 
-    private void PriceNetToGross(){
+    private boolean PriceNetToGross(){
         try {
             double priceNets = Double.parseDouble(priceNet.getText());
             double tax = Double.parseDouble(pref.get("tax", "root"));
             tax = (100+tax)/100;
             double priceGrosss = priceNets * tax;
             priceGross.setText(String.valueOf(priceGrosss));
+            return true;
         } catch (NumberFormatException f) {
             priceGross.setText("Wrong input in Price Net field!");
+            return false;
         }
     }
 
