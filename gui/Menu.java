@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.io.*;
+import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -34,17 +35,6 @@ public class Menu {
 
     Menu() {
 
-        /* Opening file to check what's the size */
-        try{
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("data.dat"));
-            String firstLine = bufferedReader.readLine();
-            i = Integer.parseInt(firstLine)+1;}
-        catch(FileNotFoundException z){
-            showMessageDialog(null, "File data.dat not found!");
-        } catch (IOException e) {
-            showMessageDialog(null, "File is empty!");
-        }
-        System.out.println("Wartosc i  to : " + i);
         /* Creating model for table in our form */
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
@@ -52,6 +42,29 @@ public class Menu {
         model.addColumn("Type");
         model.addColumn("Price");
         table.setModel(model);
+
+        /* Opening file to check what's the size and saving to array */
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("data.dat"));
+            String firstLine = bufferedReader.readLine();
+            i = Integer.parseInt(firstLine)+1;
+            String[] line = new String[i];
+
+            /* Showing data in table */
+            for(int y = 0; y < i; y++){
+                line[y] = bufferedReader.readLine();
+                StringTokenizer token = new StringTokenizer(line[y], "|");
+                String[] data = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
+                model.addRow(data);
+            }
+        }
+        catch(FileNotFoundException z){
+            showMessageDialog(null, "File data.dat not found!");
+        } catch (IOException e) {
+            showMessageDialog(null, "File is empty!");
+        }
+        System.out.println("Wartosc i  to : " + i);
+
 
         comboBox.addItem("Soups");
         comboBox.addItem("Appetizers");
