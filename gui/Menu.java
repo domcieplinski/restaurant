@@ -60,10 +60,13 @@ public class Menu {
         }
         catch(FileNotFoundException z){
             showMessageDialog(null, "File data.dat not found!");
-        } catch (IOException e) {
+        }
+        catch(IOException e) {
             showMessageDialog(null, "File is empty!");
         }
-        System.out.println("Wartosc i  to : " + i);
+        catch(NumberFormatException c){
+            i = 1;
+        }
 
 
         comboBox.addItem("Soups");
