@@ -12,8 +12,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class MainView {
     private JPanel mainPanel;
-    private JMenu File;
-    private JMenuItem NewFile;
     private JButton button1;
     private JButton button4;
     private JButton MainView;
@@ -25,7 +23,7 @@ public class MainView {
 
 
     public MainView() {
-
+        Room room = new Room();
         RestaurantName.setText(pref.get("title", "root"));
         frame = new JFrame(pref.get("title", "root"));
         frame.setDefaultCloseOperation(3);
@@ -62,12 +60,13 @@ public class MainView {
         MainView.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Room.Status_Tables.status == true) {
-                    Room room = new Room();
-                    Room.Status_Tables.status = false;
-                }else {
-                    error();
-                }
+                //if (Room.Status_Tables.status == true) {
+                    Room.tablesView.setVisible(true);
+
+                  //  Room.Status_Tables.status = false;
+                //}else {
+                    //error();
+                //}
             }
         });
 

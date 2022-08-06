@@ -58,10 +58,10 @@ public class Menu {
                 model.addRow(data);
             }
         }
-        catch(FileNotFoundException z){
+        catch(FileNotFoundException a){
             showMessageDialog(null, "File data.dat not found!");
         }
-        catch(IOException e) {
+        catch(IOException b) {
             showMessageDialog(null, "File is empty!");
         }
         catch(NumberFormatException c){

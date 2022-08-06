@@ -8,8 +8,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
 
-public class Room {
-    private JFrame tablesView;
+public class Room{
+    static JFrame tablesView = new JFrame("Room");
     private int tables_amount;
     private static JButton[] button;
 
@@ -23,7 +23,7 @@ public class Room {
             tables_amount = 1;
         }
 
-        tablesView = new JFrame("Room");
+        //tablesView = new JFrame("Room");
         tablesView.setBounds(200, 220, Toolkit.getDefaultToolkit().getScreenSize().width/2, (Toolkit.getDefaultToolkit().getScreenSize().height/2));
 
         JPanel panel = new JPanel(new GridLayout(tables_amount/2,tables_amount/2,4,4));
@@ -45,8 +45,8 @@ public class Room {
 
 
         tablesView.setContentPane(panel);
-        tablesView.setDefaultCloseOperation(2);
-        tablesView.setVisible(true);
+        tablesView.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
 
         tablesView.addWindowListener(new WindowAdapter() {
             @Override
