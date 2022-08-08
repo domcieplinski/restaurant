@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
@@ -47,13 +48,15 @@ public class Menu {
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader("data.dat"));
             String firstLine = bufferedReader.readLine();
-            i = Integer.parseInt(firstLine)+1;
-            String[] line = new String[i];
+            i = Integer.parseInt(firstLine);
+            ArrayList<String> line = new ArrayList<String>();
+
 
             /* Showing data in table */
             for(int y = 0; y < i; y++){
-                line[y] = bufferedReader.readLine();
-                StringTokenizer token = new StringTokenizer(line[y], "|");
+                line.add(bufferedReader.readLine());
+                StringTokenizer token = new StringTokenizer(line.get(y), "|");
+                System.out.println(line.get(y));
                 String[] data = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                 model.addRow(data);
             }
@@ -62,7 +65,7 @@ public class Menu {
             showMessageDialog(null, "File data.dat not found!");
         }
         catch(IOException b) {
-            showMessageDialog(null, "File is empty!");
+           showMessageDialog(null, "File is empty!");
         }
         catch(NumberFormatException c){
             i = 1;
@@ -81,12 +84,50 @@ public class Menu {
         jframe = new JFrame("Restaurant Menu");
 
         jframe.setDefaultCloseOperation(2);
+
+        jframe.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("test");
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
         jframe.setVisible(true);
 
         jframe.add(jpanel);
         jframe.setBounds(200, 200, 600, 400);
         scrollPane.setViewportView(table);
-
+        i=i+1;
         showingId.setText(String.valueOf(i));
 
 
