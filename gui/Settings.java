@@ -8,6 +8,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class Settings {
 
@@ -59,6 +61,7 @@ public class Settings {
                 if(!tax_TextField.getText().isEmpty()){
                     pref.put("tax", tax_TextField.getText());
                 }
+                showMessageDialog(null, "Restart this application to confirm your changes.");
             }
         });
         /*

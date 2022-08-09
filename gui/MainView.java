@@ -18,6 +18,7 @@ public class MainView {
     private JButton SettingsButton;
     private JLabel RestaurantName;
     private JButton MenuRestaurant;
+    private JButton exitButton;
     private JFrame frame;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 

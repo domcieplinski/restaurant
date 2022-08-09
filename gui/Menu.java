@@ -99,8 +99,7 @@ public class Menu {
             public void windowClosed(WindowEvent e) {
                 try {
                     PrintWriter savingToFile = new PrintWriter(new FileWriter("data.dat", false));
-                    int test = i;
-                    savingToFile.append(String.valueOf(test));
+                    savingToFile.append(String.valueOf(i));
                     for(int z = 0; z < i; z++){
                         savingToFile.append('\n');
                         savingToFile.append(line.get(z));

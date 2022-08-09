@@ -10,14 +10,14 @@ public class Table {
     static int number;
     private JButton addGuest = new JButton("Add Guest");
     private JButton removeGuest = new JButton("Remove Guest");
-    private JFrame frame;
+    static JFrame frame;
 
     public Table(int number) {
         this.number = number;
 
         frame = new JFrame("Table " + number);
         frame.setBounds(100, 100, 500, 500);
-        frame.setDefaultCloseOperation(2);
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         if(guest[number] == null)
             frame.add(addGuest);
         else
@@ -37,14 +37,14 @@ public class Table {
         });
 
 
-        frame.setVisible(true);
+       // frame.setVisible(true);
     }
 
 
     public void newGuest() {
 
         guest[number] = new Guest();
-        guest[number].active = true;
+        //guest[number].active = true;
         Room.button_Color(number, true);
         frame.getContentPane().removeAll();
         frame.add(removeGuest);

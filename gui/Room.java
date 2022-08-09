@@ -22,6 +22,7 @@ public class Room{
         } catch(NumberFormatException e){
             tables_amount = 1;
         }
+        Table[] tables = new Table[tables_amount];
 
         //tablesView = new JFrame("Room");
         tablesView.setBounds(200, 220, Toolkit.getDefaultToolkit().getScreenSize().width/2, (Toolkit.getDefaultToolkit().getScreenSize().height/2));
@@ -38,7 +39,10 @@ public class Room{
             button[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Table table = new Table(number);
+                    if(tables[number] == null)
+                        tables[number] = new Table(number);
+                    tables[number].frame.setVisible(true);
+
                 }
             });
         }
