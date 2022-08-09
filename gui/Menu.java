@@ -43,13 +43,14 @@ public class Menu {
         model.addColumn("Type");
         model.addColumn("Price");
         table.setModel(model);
+        ArrayList<String> line = new ArrayList<String>();
 
         /* Opening file to check what's the size and saving to array */
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader("data.dat"));
             String firstLine = bufferedReader.readLine();
             i = Integer.parseInt(firstLine);
-            ArrayList<String> line = new ArrayList<String>();
+
 
 
             /* Showing data in table */
@@ -61,14 +62,17 @@ public class Menu {
                 model.addRow(data);
             }
         }
-        catch(FileNotFoundException a){
+        catch(NullPointerException a){
+            showMessageDialog(null, "Menu is empty.");
+        }
+        catch(FileNotFoundException b){
             showMessageDialog(null, "File data.dat not found!");
         }
-        catch(IOException b) {
+        catch(IOException c) {
            showMessageDialog(null, "File is empty!");
         }
-        catch(NumberFormatException c){
-            i = 1;
+        catch(NumberFormatException d){
+            i = 0;
         }
 
 
@@ -99,7 +103,19 @@ public class Menu {
 
             @Override
             public void windowClosed(WindowEvent e) {
+                try {
+                    PrintWriter savingToFile = new PrintWriter(new FileWriter("data.dat", false));
+                    int test = i;
+                    savingToFile.append(String.valueOf(test));
+                    for(int z = 0; z < i; z++){
+                        savingToFile.append('\n');
+                        savingToFile.append(line.get(z));
 
+                    }
+                    savingToFile.close();
+                }catch(IOException c){
+                    showMessageDialog(null, "Problem with a file opening!");
+                }
             }
 
             @Override
@@ -127,8 +143,9 @@ public class Menu {
         jframe.add(jpanel);
         jframe.setBounds(200, 200, 600, 400);
         scrollPane.setViewportView(table);
-        i=i+1;
-        showingId.setText(String.valueOf(i));
+        int test =i+1;
+        System.out.println("i  to  : " + i);
+        showingId.setText(String.valueOf(test));
 
 
         /* Adding KeyListener for Enter. Inserting new values in "Price net" and clicking Enter
@@ -171,22 +188,17 @@ public class Menu {
                     showMessageDialog(null,"Field cannot be empty!");
                 }
                 else{
+                    i++;
                     String index = String.valueOf(i);
                     String name = nameField.getText();
                     String type = comboBox.getSelectedItem().toString();
                     Double price = Double.parseDouble(priceNet.getText());
                     String[] data = {index, name, type, priceNet.getText()};
 
-                    // Saving data to file
-                    try {
-                        PrintWriter savingToFile = new PrintWriter(new FileWriter("data.dat", true));
-                        savingToFile.println(index + "|" + name + "|" + type + "|" + price);
-                        savingToFile.close();
-                    }catch(IOException c){
-                        showMessageDialog(null, "Problem with a file opening!");
-                    }
+                    line.add(index + "|" + name + "|" + type + "|" + price);
 
-                    i++;
+                    System.out.println("Akurat i to  : " + i);
+
                     showingId.setText(String.valueOf(i));
                     model.addRow(data);
 
