@@ -51,13 +51,10 @@ public class Menu {
             String firstLine = bufferedReader.readLine();
             i = Integer.parseInt(firstLine);
 
-
-
             /* Showing data in table */
             for(int y = 0; y < i; y++){
                 line.add(bufferedReader.readLine());
                 StringTokenizer token = new StringTokenizer(line.get(y), "|");
-                System.out.println(line.get(y));
                 String[] data = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                 model.addRow(data);
             }
@@ -82,9 +79,6 @@ public class Menu {
         comboBox.addItem("Fast Food");
         comboBox.addItem("Drinks");
 
-
-
-
         jframe = new JFrame("Restaurant Menu");
 
         jframe.setDefaultCloseOperation(2);
@@ -97,10 +91,10 @@ public class Menu {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("test");
 
             }
 
+            /* Saving data in file */
             @Override
             public void windowClosed(WindowEvent e) {
                 try {
@@ -143,9 +137,7 @@ public class Menu {
         jframe.add(jpanel);
         jframe.setBounds(200, 200, 600, 400);
         scrollPane.setViewportView(table);
-        int test =i+1;
-        System.out.println("i  to  : " + i);
-        showingId.setText(String.valueOf(test));
+        showingId.setText(String.valueOf(i+1));
 
 
         /* Adding KeyListener for Enter. Inserting new values in "Price net" and clicking Enter
@@ -179,7 +171,14 @@ public class Menu {
                 });
 
 
-        // comboBox1.addActionListener(this);
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nameField.setText("");
+                priceNet.setText("");
+                priceGross.setText("");
+            }
+        });
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -197,9 +196,8 @@ public class Menu {
 
                     line.add(index + "|" + name + "|" + type + "|" + price);
 
-                    System.out.println("Akurat i to  : " + i);
+                    showingId.setText(String.valueOf(i+1));
 
-                    showingId.setText(String.valueOf(i));
                     model.addRow(data);
 
                 }
