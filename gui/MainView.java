@@ -41,6 +41,14 @@ public class MainView {
         frame.add(mainPanel);
         frame.setVisible(true);
 
+        /* Action listener for 'EXIT' button */
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         MenuRestaurant.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
