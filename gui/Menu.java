@@ -30,7 +30,7 @@ public class Menu {
     private JLabel priceGross;
     private JScrollPane scrollPane;
     private JLabel showingId;
-    private JFrame jframe;
+    static JFrame jframe = new JFrame("Restaurant Menu");;
     int i = 1;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
@@ -78,8 +78,6 @@ public class Menu {
         comboBox.addItem("Pizza");
         comboBox.addItem("Fast Food");
         comboBox.addItem("Drinks");
-
-        jframe = new JFrame("Restaurant Menu");
 
         jframe.setDefaultCloseOperation(2);
 
@@ -131,7 +129,7 @@ public class Menu {
 
             }
         });
-        jframe.setVisible(true);
+
 
         jframe.add(jpanel);
         jframe.setBounds(200, 200, 600, 400);
