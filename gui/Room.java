@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
 
 public class Room{
-    static JFrame tablesView = new JFrame("Room");
+    static JFrame frame = new JFrame("Room");
     private int tables_amount;
     private static JButton[] button;
 
@@ -24,7 +24,7 @@ public class Room{
         }
         Table[] tables = new Table[tables_amount];
 
-        tablesView.setBounds(200, 220, Toolkit.getDefaultToolkit().getScreenSize().width/2, (Toolkit.getDefaultToolkit().getScreenSize().height/2));
+        frame.setBounds(200, 220, Toolkit.getDefaultToolkit().getScreenSize().width/2, (Toolkit.getDefaultToolkit().getScreenSize().height/2));
 
         JPanel panel = new JPanel(new GridLayout(tables_amount/2,tables_amount/2,4,4));
         button = new JButton[tables_amount];
@@ -44,15 +44,15 @@ public class Room{
         }
 
 
-        tablesView.setContentPane(panel);
-        tablesView.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frame.setContentPane(panel);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 
-        tablesView.addWindowListener(new WindowAdapter() {
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosed(e);
-                tablesView.dispose();
+                frame.dispose();
             }
         });
     }

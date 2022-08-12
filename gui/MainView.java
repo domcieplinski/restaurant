@@ -51,7 +51,7 @@ public class MainView {
                     System.out.println("jestem w 1");
                     test[0] = false;
                 }
-                Menu.jframe.setVisible(true);
+                Menu.frame.setVisible(true);
             }
         });
         SettingsButton.addActionListener(new ActionListener() {
@@ -72,7 +72,7 @@ public class MainView {
                     Room room = new Room();
                     test[2] = false;
                 }
-                Room.tablesView.setVisible(true);
+                Room.frame.setVisible(true);
             }
         });
 

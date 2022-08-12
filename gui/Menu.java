@@ -30,7 +30,7 @@ public class Menu {
     private JLabel priceGross;
     private JScrollPane scrollPane;
     private JLabel showingId;
-    static JFrame jframe = new JFrame("Restaurant Menu");;
+    static JFrame frame = new JFrame("Restaurant Menu");;
     int i = 1;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
@@ -79,9 +79,9 @@ public class Menu {
         comboBox.addItem("Fast Food");
         comboBox.addItem("Drinks");
 
-        jframe.setDefaultCloseOperation(2);
+        frame.setDefaultCloseOperation(2);
 
-        jframe.addWindowListener(new WindowListener() {
+        frame.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
 
@@ -131,8 +131,8 @@ public class Menu {
         });
 
 
-        jframe.add(jpanel);
-        jframe.setBounds(200, 200, 600, 400);
+        frame.add(jpanel);
+        frame.setBounds(200, 200, 600, 400);
         scrollPane.setViewportView(table);
         showingId.setText(String.valueOf(i+1));
 

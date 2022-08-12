@@ -60,12 +60,5 @@ public class Settings {
                 showMessageDialog(null, "Restart this application to confirm your changes.");
             }
         });
-        /*
-            Listening to Settings frame - if it gets closed, Status_Settings.status changes statement to
-            true, so it means, that this frame can be opened again from MainView.
-            On the other hand, if Status_Settings.status if false, then it blocks from opening second
-            frame (only one can be visible at a time).
-         */
-
     }
 }
