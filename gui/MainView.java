@@ -25,6 +25,7 @@ public class MainView {
 
     public MainView() {
         Room room = new Room();
+        Settings settings = new Settings();
         RestaurantName.setText(pref.get("title", "root"));
         frame = new JFrame(pref.get("title", "root"));
         frame.setDefaultCloseOperation(3);
@@ -49,25 +50,14 @@ public class MainView {
         SettingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Settings.Status_Settings.status == true) {
-                    Settings settings = new Settings();
-                    Settings.Status_Settings.status = false;
-                }else {
-                    error();
-                }
+                Settings.ramka.setVisible(true);
             }
         });
 
         MainView.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //if (Room.Status_Tables.status == true) {
                     Room.tablesView.setVisible(true);
-
-                  //  Room.Status_Tables.status = false;
-                //}else {
-                    //error();
-                //}
             }
         });
 

@@ -3,6 +3,7 @@ package gui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import static gui.Guest.guest;
 
@@ -18,33 +19,31 @@ public class Table {
         frame = new JFrame("Table " + number);
         frame.setBounds(100, 100, 500, 500);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
         if(guest[number] == null)
             frame.add(addGuest);
         else
             frame.add(removeGuest);
+
+        frame.setVisible(true);
+
         addGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newGuest();
+                newGuest(number);
             }
         });
 
         removeGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeGuest();
+                removeGuest(number);
             }
         });
 
-
-       // frame.setVisible(true);
     }
-
-
-    public void newGuest() {
-
-        guest[number] = new Guest();
-        //guest[number].active = true;
+    public void newGuest(int number) {
+        guest[number] = new Guest(number);
         Room.button_Color(number, true);
         frame.getContentPane().removeAll();
         frame.add(removeGuest);
@@ -53,16 +52,15 @@ public class Table {
         removeGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                removeGuest();
+                removeGuest(number);
             }
         });
 
 
     }
 
-    public void removeGuest() {
-        guest[number].active = false;
+    public void removeGuest(int number) {
+        guest[number] = null;
         Room.button_Color(number, false);
         frame.getContentPane().removeAll();
         frame.add(addGuest);
@@ -71,7 +69,7 @@ public class Table {
         addGuest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newGuest();
+                newGuest(number);
             }
         });
     }

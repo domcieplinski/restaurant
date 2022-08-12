@@ -39,9 +39,11 @@ public class Room{
             button[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(tables[number] == null)
+                 //   if(tables[number] == null){
+                   //     System.out.println("Nie ma table");
                         tables[number] = new Table(number);
-                    tables[number].frame.setVisible(true);
+
+
 
                 }
             });
@@ -56,7 +58,6 @@ public class Room{
             @Override
             public void windowClosing(WindowEvent e) {
                 super.windowClosed(e);
-                Status_Tables.status = true;
                 tablesView.dispose();
             }
         });
@@ -70,8 +71,6 @@ public class Room{
             button[number].setBorderPainted(false);
     }
 
-    public class Status_Tables {
-        public static boolean status = true;
-    }
+
 }
 

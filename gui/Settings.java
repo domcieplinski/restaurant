@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.prefs.Preferences;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -21,12 +19,11 @@ public class Settings {
     private JLabel taxLabel = new JLabel("Tax value (%) : ");
     private JTextField tax_TextField = new JTextField();
     private JPanel panel = new JPanel();
-    private JFrame ramka;
+    static JFrame ramka = new JFrame("Settings");
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
 
     public Settings() {
-        ramka = new JFrame("Settings");
 
         ramka.setBounds(100,100,500,500);
         ramka.setDefaultCloseOperation(2);
@@ -44,7 +41,6 @@ public class Settings {
         panel.add(tax_TextField);
         ramka.add(setButton, BorderLayout.SOUTH);
 
-        ramka.setVisible(true);
 
         /*  ActionListener for "Set" button. It checks whether text field is empty or not. If not then it sets
             this text to preferences (java.util.prefs).
@@ -70,17 +66,6 @@ public class Settings {
             On the other hand, if Status_Settings.status if false, then it blocks from opening second
             frame (only one can be visible at a time).
          */
-        ramka.addWindowListener(new WindowAdapter (){
-            @Override
-            public void windowClosing(WindowEvent e){
-                super.windowClosed(e);
-                Status_Settings.status = true;
-                ramka.dispose();
-            }
-        });
-    }
 
-    public class Status_Settings {
-        public static boolean status = true;
     }
 }

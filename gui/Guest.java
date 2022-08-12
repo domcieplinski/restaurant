@@ -6,9 +6,13 @@ public class Guest{
     static int tables_amount = Integer.parseInt(pref.get("tables_amount", "root"));
     static Guest[] guest =  new Guest[tables_amount];
 
-
+    static String imie;
     boolean active = false;
-    public Guest(){
+    public Guest(int number){
+      //  guest[number].name = name;
+      //  System.out.println("imie to : " + guest[number].name);
+
+
 
         //super(number);
     }
