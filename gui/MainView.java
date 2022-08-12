@@ -50,7 +50,7 @@ public class MainView {
         SettingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Settings.ramka.setVisible(true);
+                Settings.frame.setVisible(true);
             }
         });
 
@@ -62,10 +62,5 @@ public class MainView {
         });
 
     }
-
-    private void error() {
-        showMessageDialog(null, "You have already opened this window!");
-    }
-
 }
 

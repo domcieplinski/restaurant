@@ -24,7 +24,6 @@ public class Room{
         }
         Table[] tables = new Table[tables_amount];
 
-        //tablesView = new JFrame("Room");
         tablesView.setBounds(200, 220, Toolkit.getDefaultToolkit().getScreenSize().width/2, (Toolkit.getDefaultToolkit().getScreenSize().height/2));
 
         JPanel panel = new JPanel(new GridLayout(tables_amount/2,tables_amount/2,4,4));
@@ -39,12 +38,7 @@ public class Room{
             button[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 //   if(tables[number] == null){
-                   //     System.out.println("Nie ma table");
                         tables[number] = new Table(number);
-
-
-
                 }
             });
         }
@@ -63,12 +57,13 @@ public class Room{
         });
     }
     public static void button_Color(int number, boolean active){
-        if(active == true)
+        if(active)
             button[number].setBackground(Color.RED);
         else
             button[number].setBackground(Color.WHITE);
-            button[number].setOpaque(true);
-            button[number].setBorderPainted(false);
+
+        button[number].setOpaque(true);
+        button[number].setBorderPainted(false);
     }
 
 

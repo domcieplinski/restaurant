@@ -11,7 +11,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Settings {
 
-    private JButton setButton = new JButton("Set");
+    private final JButton setButton = new JButton("Set");
     private JTextField tablesAmount_TextField = new JTextField(2);
     private JLabel tablesAmount_Label = new JLabel("Number of tables in restaurant : ");
     private JLabel setCompanyName_Label = new JLabel("Restaurant name : ");
@@ -19,16 +19,16 @@ public class Settings {
     private JLabel taxLabel = new JLabel("Tax value (%) : ");
     private JTextField tax_TextField = new JTextField();
     private JPanel panel = new JPanel();
-    static JFrame ramka = new JFrame("Settings");
+    static JFrame frame = new JFrame("Settings");
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
 
     public Settings() {
 
-        ramka.setBounds(100,100,500,500);
-        ramka.setDefaultCloseOperation(2);
+        frame.setBounds(100,100,500,500);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        ramka.add(panel);
+        frame.add(panel);
 
         panel.setLayout( new GridLayout(3, 2) );
         panel.add(setCompanyName_Label);
@@ -39,7 +39,7 @@ public class Settings {
 
         panel.add(taxLabel);
         panel.add(tax_TextField);
-        ramka.add(setButton, BorderLayout.SOUTH);
+        frame.add(setButton, BorderLayout.SOUTH);
 
 
         /*  ActionListener for "Set" button. It checks whether text field is empty or not. If not then it sets
