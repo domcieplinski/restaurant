@@ -22,7 +22,7 @@ public class Room{
         } catch(NumberFormatException e){
             tables_amount = 1;
         }
-        Table[] tables = new Table[tables_amount];
+        NewOrder[] newOrder= new NewOrder[tables_amount];
 
         frame.setBounds(200, 220, Toolkit.getDefaultToolkit().getScreenSize().width/2, (Toolkit.getDefaultToolkit().getScreenSize().height/2));
 
@@ -38,7 +38,13 @@ public class Room{
             button[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                        tables[number] = new Table(number);
+                    if(newOrder[number] == null)   {
+                        newOrder[number] = new NewOrder(number);
+                    }else{
+                        newOrder[number].frame.setVisible(true);
+                    }
+
+
                 }
             });
         }

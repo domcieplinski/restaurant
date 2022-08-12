@@ -1,6 +1,5 @@
 package gui;
 
-import javax.management.BadStringOperationException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
@@ -30,6 +29,7 @@ public class Menu {
     private JLabel priceGross;
     private JScrollPane scrollPane;
     private JLabel showingId;
+    private JButton deleteSelectedButton;
     static JFrame frame = new JFrame("Restaurant Menu");;
     int i = 1;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
