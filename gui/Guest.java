@@ -8,12 +8,8 @@ public class Guest{
 
     boolean active = false;
     public Guest(int number){
-      //  guest[number].name = name;
-      //  System.out.println("imie to : " + guest[number].name);
 
-
-
-        //super(number);
+        
     }
 
     static boolean setActive(int number){

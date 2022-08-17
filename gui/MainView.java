@@ -24,7 +24,7 @@ public class MainView {
 
         RestaurantName.setText(pref.get("title", "root"));
         frame = new JFrame(pref.get("title", "root"));
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Getting screen size = dynamic sizes of MainView frame
         final double width = Toolkit.getDefaultToolkit().getScreenSize().width/2;
