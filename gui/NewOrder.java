@@ -20,7 +20,7 @@ public class NewOrder {
     private JTree menuTree;
     private JTable table1;
     private JLabel titleLabel;
-    private JButton addGuest  = new JButton("Add Guest");;
+    private JButton addGuest  = new JButton("Add Guest");
     private JButton removeGuest;
     private JLabel valueLabel;
     private JButton removeClient;
@@ -39,8 +39,6 @@ public class NewOrder {
         DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode("Menu");
         createNodes(treeNode);
         menuTree = new JTree(treeNode);
-        //frame.add(menuTree);
-        //JScrollPane treeView = new JScrollPane(menuTree);
 
         if (guest[number] == null)
             frame.add(addGuest);
@@ -82,13 +80,13 @@ public class NewOrder {
         }
 
         private void createNodes(DefaultMutableTreeNode treeNode){
-            DefaultMutableTreeNode pizza = null;
-            DefaultMutableTreeNode appetizers = null;
-            DefaultMutableTreeNode soups = null;
-            DefaultMutableTreeNode fastFood = null;
-            DefaultMutableTreeNode drinks = null;
-            DefaultMutableTreeNode items = null;
-            String line = null;
+            DefaultMutableTreeNode pizza;
+            DefaultMutableTreeNode appetizers;
+            DefaultMutableTreeNode soups;
+            DefaultMutableTreeNode fastFood;
+            DefaultMutableTreeNode drinks;
+            DefaultMutableTreeNode items;
+            String line;
 
 
             soups = new DefaultMutableTreeNode("Soups");
@@ -102,13 +100,6 @@ public class NewOrder {
             drinks = new DefaultMutableTreeNode("Drinks");
             treeNode.add(drinks);
 
-
-
-
-
-
-
-
             try {
                 BufferedReader readingMenu = new BufferedReader(new FileReader("data.dat"));
                 line = readingMenu.readLine();
@@ -117,7 +108,6 @@ public class NewOrder {
                 for(int y = 0; y < i; y++){
                     line = readingMenu.readLine();
                     StringTokenizer token = new StringTokenizer(line, "|");
-                    System.out.println(line);
                     String[] word = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                     items = new DefaultMutableTreeNode(word[1]);
                     switch(word[2]){
@@ -142,10 +132,6 @@ public class NewOrder {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
-
-
-
 
             DefaultTreeModel model =(DefaultTreeModel) menuTree.getModel();
             model.setRoot(treeNode);
