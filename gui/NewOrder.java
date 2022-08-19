@@ -8,6 +8,10 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 import static gui.Guest.guest;
 
@@ -78,16 +82,69 @@ public class NewOrder {
         }
 
         private void createNodes(DefaultMutableTreeNode treeNode){
-            DefaultMutableTreeNode category = null;
+            DefaultMutableTreeNode pizza = null;
+            DefaultMutableTreeNode appetizers = null;
+            DefaultMutableTreeNode soups = null;
+            DefaultMutableTreeNode fastFood = null;
+            DefaultMutableTreeNode drinks = null;
             DefaultMutableTreeNode items = null;
+            String line = null;
 
-            category = new DefaultMutableTreeNode("Pizza");
-            treeNode.add(category);
-            items = new DefaultMutableTreeNode("Test");
-            category.add(items);
 
-            category = new DefaultMutableTreeNode("Apperitif");
-            treeNode.add(category);
+            soups = new DefaultMutableTreeNode("Soups");
+            treeNode.add(soups);
+            appetizers = new DefaultMutableTreeNode("Appetizers");
+            treeNode.add(appetizers);
+            pizza = new DefaultMutableTreeNode("Pizza");
+            treeNode.add(pizza);
+            fastFood = new DefaultMutableTreeNode("Fast Food");
+            treeNode.add(fastFood);
+            drinks = new DefaultMutableTreeNode("Drinks");
+            treeNode.add(drinks);
+
+
+
+
+
+
+
+
+            try {
+                BufferedReader readingMenu = new BufferedReader(new FileReader("data.dat"));
+                line = readingMenu.readLine();
+                int i = Integer.parseInt(line);
+
+                for(int y = 0; y < i; y++){
+                    line = readingMenu.readLine();
+                    StringTokenizer token = new StringTokenizer(line, "|");
+                    System.out.println(line);
+                    String[] word = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
+                    items = new DefaultMutableTreeNode(word[1]);
+                    switch(word[2]){
+                        case "Pizza":
+                            pizza.add(items);
+                            break;
+                        case "Soups":
+                            soups.add(items);
+                            break;
+                        case "Fast Food":
+                            fastFood.add(items);
+                            break;
+                        case "Drinks":
+                            drinks.add(items);
+                            break;
+                        case "Appetizers":
+                            appetizers.add(items);
+                            break;
+                    }
+                }
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
 
 
             DefaultTreeModel model =(DefaultTreeModel) menuTree.getModel();
