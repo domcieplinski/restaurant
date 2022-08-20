@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
@@ -32,9 +33,13 @@ public class Menu {
     private JButton deleteSelectedButton;
     static JFrame frame = new JFrame("Restaurant Menu");;
     int i = 1;
+    int test = 0;
+    int official = 1;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
     Menu() {
+
+
 
         /* Creating model for table in our form */
         DefaultTableModel model = new DefaultTableModel();
@@ -50,12 +55,27 @@ public class Menu {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("data.dat"));
             String firstLine = bufferedReader.readLine();
             i = Integer.parseInt(firstLine);
+            official = i+1;
+            boolean status = true;
 
             /* Showing data in table */
             for(int y = 0; y < i; y++){
                 line.add(bufferedReader.readLine());
                 StringTokenizer token = new StringTokenizer(line.get(y), "|");
                 String[] data = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
+                System.out.println("Pierwszy parse to  : " + Integer.parseInt(data[0]));
+                System.out.println("Pierwsze test to  : " + test);
+                if((Integer.parseInt(data[0]) - test) != 1 && status == true){
+                    test = Integer.parseInt(data[0])-1;
+                    official = test;
+                    status = false;
+                    System.out.println("Parse int to : " + Integer.parseInt(data[0]));
+                    System.out.println("test to : " + test);
+                }
+                else
+                    test = Integer.parseInt(data[0]);
+
+
                 model.addRow(data);
             }
         }
@@ -96,6 +116,7 @@ public class Menu {
             @Override
             public void windowClosed(WindowEvent e) {
                 try {
+                    Collections.sort(line);
                     PrintWriter savingToFile = new PrintWriter(new FileWriter("data.dat", false));
                     savingToFile.append(String.valueOf(i));
                     for(int z = 0; z < i; z++){
@@ -134,7 +155,9 @@ public class Menu {
         frame.add(jpanel);
         frame.setBounds(200, 200, 600, 400);
         scrollPane.setViewportView(table);
-        showingId.setText(String.valueOf(i+1));
+        System.out.println("offical test to  :" + official);
+
+        showingId.setText(String.valueOf(official));
 
 
         /* Adding KeyListener for Enter. Inserting new values in "Price net" and clicking Enter
@@ -185,7 +208,7 @@ public class Menu {
                 }
                 else{
                     i++;
-                    String index = String.valueOf(i);
+                    String index = String.valueOf(official);
                     String name = nameField.getText();
                     String type = comboBox.getSelectedItem().toString();
                     Double price = Double.parseDouble(priceNet.getText());
