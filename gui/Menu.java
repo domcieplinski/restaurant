@@ -201,6 +201,19 @@ public class Menu {
 
             }
         });
+        deleteSelectedButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (table.getSelectedRow() != -1){
+                    //Remove selected row from jTable
+                    line.remove(table.getSelectedRow());
+                    model.removeRow(table.getSelectedRow());
+                    i--;
+
+                    showMessageDialog(null, "Record deleted!");
+                }
+            }
+        });
     }
 
     private boolean PriceNetToGross(){

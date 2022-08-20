@@ -48,7 +48,6 @@ public class MainView {
             public void actionPerformed(ActionEvent e) {
                 if(test[0]){
                     Menu menu = new Menu();
-                    System.out.println("jestem w 1");
                     test[0] = false;
                 }
                 Menu.frame.setVisible(true);
