@@ -2,15 +2,22 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import static gui.Guest.guest;
@@ -27,7 +34,13 @@ public class NewOrder {
     private JButton button2;
     public JFrame frame;
 
+    ArrayList<String> lines = new ArrayList<String>();
+
+    int i = 0;
+
     public NewOrder(int number) {
+
+
 
         frame = new JFrame("Table " + (number + 1));
         frame.setBounds(100, 100, 600, 600);
@@ -40,12 +53,15 @@ public class NewOrder {
         createNodes(treeNode);
         menuTree = new JTree(treeNode);
 
+
         if (guest[number] == null)
             frame.add(addGuest);
         else{
             frame.add(removeGuest);
         frame.add(panel);}
         frame.setVisible(true);
+
+
 
         addGuest.addActionListener(new ActionListener() {
             @Override
@@ -60,6 +76,7 @@ public class NewOrder {
                 removeGuest(number);
             }
         });
+
     }
         public void newGuest(int number) {
             guest[number] = new Guest(number);
@@ -86,6 +103,7 @@ public class NewOrder {
             DefaultMutableTreeNode fastFood;
             DefaultMutableTreeNode drinks;
             DefaultMutableTreeNode items;
+
             String line;
 
 
@@ -102,12 +120,12 @@ public class NewOrder {
 
             try {
                 BufferedReader readingMenu = new BufferedReader(new FileReader("data.dat"));
-                line = readingMenu.readLine();
-                int i = Integer.parseInt(line);
+                lines.add(readingMenu.readLine());
+                i = Integer.parseInt(lines.get(0));
 
-                for(int y = 0; y < i; y++){
-                    line = readingMenu.readLine();
-                    StringTokenizer token = new StringTokenizer(line, "|");
+                for(int y = 1; y < i; y++){
+                    lines.add(readingMenu.readLine());
+                    StringTokenizer token = new StringTokenizer(lines.get(y), "|");
                     String[] word = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                     items = new DefaultMutableTreeNode(word[1]);
                     switch(word[2]){
@@ -132,9 +150,26 @@ public class NewOrder {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            catch (NoSuchElementException f){
+                System.out.println("No such element.");
+            }
 
             DefaultTreeModel model =(DefaultTreeModel) menuTree.getModel();
             model.setRoot(treeNode);
+
+            menuTree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+                @Override
+                public void valueChanged(TreeSelectionEvent e) {
+
+                    TreePath treePath = e.getPath();
+                    int size = e.getNewLeadSelectionPath().getPathCount();
+                    if(size == 3){
+                        String test = String.valueOf(treePath.getLastPathComponent());
+                        System.out.println(test);}
+                }
+
+            });
+
         }
 
         public void removeGuest(int number) {
