@@ -9,6 +9,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import java.awt.*;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,9 +17,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import static gui.Guest.guest;
 
@@ -118,6 +117,67 @@ public class NewOrder {
             drinks = new DefaultMutableTreeNode("Drinks");
             treeNode.add(drinks);
 
+            Map <String, List<String>> map = new Map<String, List<String>>() {
+                @Override
+                public int size() {
+                    return 0;
+                }
+
+                @Override
+                public boolean isEmpty() {
+                    return false;
+                }
+
+                @Override
+                public boolean containsKey(Object key) {
+                    return false;
+                }
+
+                @Override
+                public boolean containsValue(Object value) {
+                    return false;
+                }
+
+                @Override
+                public List<String> get(Object key) {
+                    return null;
+                }
+
+                @Override
+                public List<String> put(String key, List<String> value) {
+                    return null;
+                }
+
+                @Override
+                public List<String> remove(Object key) {
+                    return null;
+                }
+
+                @Override
+                public void putAll(Map<? extends String, ? extends List<String>> m) {
+
+                }
+
+                @Override
+                public void clear() {
+
+                }
+
+                @Override
+                public Set<String> keySet() {
+                    return null;
+                }
+
+                @Override
+                public Collection<List<String>> values() {
+                    return null;
+                }
+
+                @Override
+                public Set<Entry<String, List<String>>> entrySet() {
+                    return null;
+                }
+            };
             try {
                 BufferedReader readingMenu = new BufferedReader(new FileReader("data.dat"));
                 lines.add(readingMenu.readLine());
@@ -160,7 +220,6 @@ public class NewOrder {
             menuTree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
                 @Override
                 public void valueChanged(TreeSelectionEvent e) {
-
                     TreePath treePath = e.getPath();
                     int size = e.getNewLeadSelectionPath().getPathCount();
                     if(size == 3){

@@ -63,14 +63,10 @@ public class Menu {
                 line.add(bufferedReader.readLine());
                 StringTokenizer token = new StringTokenizer(line.get(y), "|");
                 String[] data = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
-                System.out.println("Pierwszy parse to  : " + Integer.parseInt(data[0]));
-                System.out.println("Pierwsze test to  : " + test);
                 if((Integer.parseInt(data[0]) - test) != 1 && status == true){
                     test = Integer.parseInt(data[0])-1;
                     official = test;
                     status = false;
-                    System.out.println("Parse int to : " + Integer.parseInt(data[0]));
-                    System.out.println("test to : " + test);
                 }
                 else
                     test = Integer.parseInt(data[0]);
