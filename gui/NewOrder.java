@@ -21,7 +21,7 @@ import java.util.*;
 
 import static gui.Guest.guest;
 
-public class NewOrder {
+public class NewOrder  {
     private JPanel panel;
     private JTree menuTree;
     private JTable table1;
@@ -34,12 +34,12 @@ public class NewOrder {
     public JFrame frame;
 
     ArrayList<String> lines = new ArrayList<String>();
+    ArrayList<String[] > menuList = new ArrayList<String[] >();
 
     int i = 0;
+    double sum = 0;
 
     public NewOrder(int number) {
-
-
 
         frame = new JFrame("Table " + (number + 1));
         frame.setBounds(100, 100, 600, 600);
@@ -73,6 +73,7 @@ public class NewOrder {
             @Override
             public void actionPerformed(ActionEvent e) {
                 removeGuest(number);
+                sum = 0;
             }
         });
 
@@ -80,7 +81,7 @@ public class NewOrder {
         public void newGuest(int number) {
             guest[number] = new Guest(number);
             titleLabel.setText("New order - Table " + (number+1));
-            valueLabel.setText(String.valueOf(number));
+            valueLabel.setText(String.valueOf(sum));
             Room.button_Color(number, true);
             frame.getContentPane().removeAll();
             frame.revalidate();
@@ -188,6 +189,7 @@ public class NewOrder {
                     StringTokenizer token = new StringTokenizer(lines.get(y), "|");
                     String[] word = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                     items = new DefaultMutableTreeNode(word[1]);
+                    menuList.add(word);
                     switch(word[2]){
                         case "Pizza":
                             pizza.add(items);
@@ -224,11 +226,25 @@ public class NewOrder {
                     int size = e.getNewLeadSelectionPath().getPathCount();
                     if(size == 3){
                         String test = String.valueOf(treePath.getLastPathComponent());
-                        System.out.println(test);}
+                        int foundItems = findItems(test);
+                        sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
+                        valueLabel.setText(String.valueOf(sum));
+                        System.out.println(menuList.get(foundItems)[2]);
+                    }
                 }
 
             });
 
+        }
+
+        public int findItems(String name){
+            for(int x = 0; x < menuList.size(); x++){
+                if(menuList.get(x)[1] == name)
+                {
+                    return x;
+                }
+            }
+            return 0;
         }
 
         public void removeGuest(int number) {
