@@ -38,9 +38,10 @@ public class NewOrder  {
 
     int i = 0;
     double sum = 0;
+    String[] finalData;
 
     public NewOrder(int number) {
-        
+
         frame = new JFrame("Table " + (number + 1));
         frame.setBounds(100, 100, 750, 500);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -88,12 +89,7 @@ public class NewOrder  {
             frame.repaint();
             frame.add(panel);
             frame.setVisible(true);
-            addToOrder.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    removeGuest(number);
-                }
-            });
+
         }
 
         private void createNodes(DefaultMutableTreeNode treeNode){
@@ -105,12 +101,7 @@ public class NewOrder  {
             DefaultMutableTreeNode items;
 
             String line;
-            DefaultTableModel tableModel = new DefaultTableModel();
-            scrollPane.setViewportView(tableOrderedFood);
-            tableModel.addColumn("Name");
-            tableModel.addColumn("Price");
 
-            tableOrderedFood.setModel(tableModel);
 
 
 
@@ -177,8 +168,22 @@ public class NewOrder  {
                         valueLabel.setText(String.valueOf(sum));
                         System.out.println(menuList.get(foundItems)[2]);
 
-                        String[] data = {menuList.get(foundItems)[2], menuList.get(foundItems)[3]};
+                        String[] data = {menuList.get(foundItems)[1], menuList.get(foundItems)[3]};
+                        DefaultTableModel tableModel = new DefaultTableModel();
+                        scrollPane.setViewportView(tableOrderedFood);
+                        tableModel.addColumn("Name");
+                        tableModel.addColumn("Price");
+                        tableOrderedFood.setModel(tableModel);
+
                         tableModel.addRow(data);
+                        TableCellRenderer weirdRenderer = new WeirdRenderer();
+                        addToOrder.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                finalData = data;
+                            }
+                        });
+                        tableModel.addRow(finalData);
                     }
                 }
 
