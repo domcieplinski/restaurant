@@ -4,16 +4,15 @@ import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import java.awt.*;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,14 +23,15 @@ import static gui.Guest.guest;
 public class NewOrder  {
     private JPanel panel;
     private JTree menuTree;
-    private JTable table1;
+    private JTable tableOrderedFood;
     private JLabel titleLabel;
     private JButton addGuest  = new JButton("Add Guest");
-    private JButton removeGuest;
+    private JButton addToOrder;
     private JLabel valueLabel;
     private JButton removeClient;
     private JButton button2;
     public JFrame frame;
+    private JScrollPane scrollPane;
 
     ArrayList<String> lines = new ArrayList<String>();
     ArrayList<String[] > menuList = new ArrayList<String[] >();
@@ -40,9 +40,9 @@ public class NewOrder  {
     double sum = 0;
 
     public NewOrder(int number) {
-
+        
         frame = new JFrame("Table " + (number + 1));
-        frame.setBounds(100, 100, 600, 600);
+        frame.setBounds(100, 100, 750, 500);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         valueLabel.setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(1,1,1,1, Color.WHITE),
@@ -56,7 +56,7 @@ public class NewOrder  {
         if (guest[number] == null)
             frame.add(addGuest);
         else{
-            frame.add(removeGuest);
+            frame.add(addToOrder);
         frame.add(panel);}
         frame.setVisible(true);
 
@@ -88,7 +88,7 @@ public class NewOrder  {
             frame.repaint();
             frame.add(panel);
             frame.setVisible(true);
-            removeGuest.addActionListener(new ActionListener() {
+            addToOrder.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     removeGuest(number);
@@ -105,6 +105,13 @@ public class NewOrder  {
             DefaultMutableTreeNode items;
 
             String line;
+            DefaultTableModel tableModel = new DefaultTableModel();
+            scrollPane.setViewportView(tableOrderedFood);
+            tableModel.addColumn("Name");
+            tableModel.addColumn("Price");
+
+            tableOrderedFood.setModel(tableModel);
+
 
 
             soups = new DefaultMutableTreeNode("Soups");
@@ -118,67 +125,6 @@ public class NewOrder  {
             drinks = new DefaultMutableTreeNode("Drinks");
             treeNode.add(drinks);
 
-            Map <String, List<String>> map = new Map<String, List<String>>() {
-                @Override
-                public int size() {
-                    return 0;
-                }
-
-                @Override
-                public boolean isEmpty() {
-                    return false;
-                }
-
-                @Override
-                public boolean containsKey(Object key) {
-                    return false;
-                }
-
-                @Override
-                public boolean containsValue(Object value) {
-                    return false;
-                }
-
-                @Override
-                public List<String> get(Object key) {
-                    return null;
-                }
-
-                @Override
-                public List<String> put(String key, List<String> value) {
-                    return null;
-                }
-
-                @Override
-                public List<String> remove(Object key) {
-                    return null;
-                }
-
-                @Override
-                public void putAll(Map<? extends String, ? extends List<String>> m) {
-
-                }
-
-                @Override
-                public void clear() {
-
-                }
-
-                @Override
-                public Set<String> keySet() {
-                    return null;
-                }
-
-                @Override
-                public Collection<List<String>> values() {
-                    return null;
-                }
-
-                @Override
-                public Set<Entry<String, List<String>>> entrySet() {
-                    return null;
-                }
-            };
             try {
                 BufferedReader readingMenu = new BufferedReader(new FileReader("data.dat"));
                 lines.add(readingMenu.readLine());
@@ -230,6 +176,9 @@ public class NewOrder  {
                         sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
                         valueLabel.setText(String.valueOf(sum));
                         System.out.println(menuList.get(foundItems)[2]);
+
+                        String[] data = {menuList.get(foundItems)[2], menuList.get(foundItems)[3]};
+                        tableModel.addRow(data);
                     }
                 }
 

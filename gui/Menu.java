@@ -65,7 +65,6 @@ public class Menu {
                 String[] data = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                 if((Integer.parseInt(data[0]) - test) != 1 && status == true){
                     test = Integer.parseInt(data[0])-1;
-                    official = test;
                     status = false;
                 }
                 else
