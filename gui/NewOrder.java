@@ -32,6 +32,7 @@ public class NewOrder  {
     private JButton button2;
     public JFrame frame;
     private JScrollPane scrollPane;
+    private JLabel choosenItem;
 
     ArrayList<String> lines = new ArrayList<String>();
     ArrayList<String[] > menuList = new ArrayList<String[] >();
@@ -102,6 +103,12 @@ public class NewOrder  {
 
             String line;
 
+            DefaultTableModel tableModel = new DefaultTableModel();
+            scrollPane.setViewportView(tableOrderedFood);
+            tableModel.addColumn("Name");
+            tableModel.addColumn("Price");
+            tableOrderedFood.setModel(tableModel);
+
 
 
 
@@ -166,24 +173,31 @@ public class NewOrder  {
                         int foundItems = findItems(test);
                         sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
                         valueLabel.setText(String.valueOf(sum));
-                        System.out.println(menuList.get(foundItems)[2]);
-
+                        //System.out.println(menuList.get(foundItems)[2]);
                         String[] data = {menuList.get(foundItems)[1], menuList.get(foundItems)[3]};
-                        DefaultTableModel tableModel = new DefaultTableModel();
-                        scrollPane.setViewportView(tableOrderedFood);
-                        tableModel.addColumn("Name");
-                        tableModel.addColumn("Price");
-                        tableOrderedFood.setModel(tableModel);
 
-                        tableModel.addRow(data);
-                        TableCellRenderer weirdRenderer = new WeirdRenderer();
+
+
+                        choosenItem.setText(data[0] + " " + data[1]);
                         addToOrder.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                finalData = data;
+
+
+                                //String dane = menuList.get(foundItems)[1];
+                                System.out.println(menuList.get(foundItems)[1]);
+                                //dane = menuList.get(foundItems)[3];
+                                //System.out.println(dane);
+
+                                //tableModel.addRow(dane);
+                                //System.out.println(tableModel);
+                                //for(int w = 0; w < dane.length; w++){
+                                   // System.out.println(dane[w]);
+                               // }
+
+
                             }
                         });
-                        tableModel.addRow(finalData);
                     }
                 }
 
