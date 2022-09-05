@@ -34,11 +34,11 @@ public class NewOrder  {
     private JButton button2;
     public JFrame frame;
     private JScrollPane scrollPane;
-    private JLabel choosenItem;
+    private JLabel chosenItem;
 
     ArrayList<String> lines = new ArrayList<String>();
     ArrayList<String[] > menuList = new ArrayList<String[] >();
-
+    private DefaultTableModel tableModel = new DefaultTableModel();
     int i = 0;
     double sum = 0;
     String[] finalData;
@@ -78,6 +78,8 @@ public class NewOrder  {
             public void actionPerformed(ActionEvent e) {
                 removeGuest(number);
                 sum = 0;
+                tableModel.setRowCount(0);
+
             }
         });
 
@@ -105,7 +107,7 @@ public class NewOrder  {
 
             String line;
 
-            DefaultTableModel tableModel = new DefaultTableModel();
+
             scrollPane.setViewportView(tableOrderedFood);
             tableModel.addColumn("Name");
             tableModel.addColumn("Price");
@@ -180,32 +182,14 @@ public class NewOrder  {
                     int size = e.getNewLeadSelectionPath().getPathCount();
                     if(size == 3){
                         int foundItems = findItems(String.valueOf(treePath.getLastPathComponent()));
-
-                        String[] data  = new String[2];
-                        Arrays.fill(data, null);
-                        data[0] = menuList.get(foundItems)[1];
-                        System.out.println("Data 0 : " + data[0]);
-                        data[1] = menuList.get(foundItems)[3];
-                        System.out.println("Data 1 : " + data[1]);
-
-
-                        for(TreeSelectionListener deleter : menuTree.getTreeSelectionListeners()) {
-                            menuTree.removeTreeSelectionListener(deleter);
-                        }
-
-                        choosenItem.setText(data[0] + " " + data[1]);
+                        String[] data  = {menuList.get(foundItems)[1], menuList.get(foundItems)[3]};
+                        chosenItem.setText(data[0] + " " + data[1]);
                         addToOrder.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-
-                                System.out.println(menuList.get(foundItems)[1]);
                                 sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
                                 valueLabel.setText(String.valueOf(sum));
-
-
                                 tableModel.addRow(data);
-
-
                             }
                         });
                     }
