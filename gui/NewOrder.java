@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static gui.Guest.guest;
+import static gui.Guest.tables_amount;
 
 public class NewOrder  {
     private JPanel panel;
@@ -163,6 +164,7 @@ public class NewOrder  {
             DefaultTreeModel model =(DefaultTreeModel) menuTree.getModel();
             model.setRoot(treeNode);
 
+
             menuTree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
                 @Override
                 public void valueChanged(TreeSelectionEvent e) {
@@ -173,19 +175,24 @@ public class NewOrder  {
                         int foundItems = findItems(test);
                         sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
                         valueLabel.setText(String.valueOf(sum));
-                        //System.out.println(menuList.get(foundItems)[2]);
+
                         String[] data = {menuList.get(foundItems)[1], menuList.get(foundItems)[3]};
-
-
 
                         choosenItem.setText(data[0] + " " + data[1]);
                         addToOrder.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
 
+                                System.out.println(menuList.get(foundItems)[2]);
 
-                                //String dane = menuList.get(foundItems)[1];
-                                System.out.println(menuList.get(foundItems)[1]);
+                                /* Every time I use again action listener it adds new item to the list.
+                                   Below I'm clearing all of Action Listeners.
+                                */
+                                for(ActionListener deleter : addToOrder.getActionListeners()) {
+                                    addToOrder.removeActionListener(deleter);
+                                }
+
+
                                 //dane = menuList.get(foundItems)[3];
                                 //System.out.println(dane);
 

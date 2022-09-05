@@ -121,7 +121,10 @@
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-8602747"/>
+          <foreground color="-16729239"/>
+        </properties>
         <border type="line">
           <color color="-4473925"/>
         </border>
