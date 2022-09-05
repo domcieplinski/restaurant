@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
+import javax.swing.event.MenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -169,47 +170,47 @@ public class NewOrder  {
                 @Override
                 public void valueChanged(TreeSelectionEvent e) {
                     TreePath treePath = e.getPath();
+
+                    /* Every time I use again action listener it adds new item to the list.
+                                   Below I'm clearing all of Action Listeners.
+                    */
+                    for(ActionListener deleter : addToOrder.getActionListeners()) {
+                        addToOrder.removeActionListener(deleter);
+                    }
                     int size = e.getNewLeadSelectionPath().getPathCount();
                     if(size == 3){
-                        String test = String.valueOf(treePath.getLastPathComponent());
-                        int foundItems = findItems(test);
-                        sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
-                        valueLabel.setText(String.valueOf(sum));
+                        int foundItems = findItems(String.valueOf(treePath.getLastPathComponent()));
 
-                        String[] data = {menuList.get(foundItems)[1], menuList.get(foundItems)[3]};
+                        String[] data  = new String[2];
+                        Arrays.fill(data, null);
+                        data[0] = menuList.get(foundItems)[1];
+                        System.out.println("Data 0 : " + data[0]);
+                        data[1] = menuList.get(foundItems)[3];
+                        System.out.println("Data 1 : " + data[1]);
+
+
+                        for(TreeSelectionListener deleter : menuTree.getTreeSelectionListeners()) {
+                            menuTree.removeTreeSelectionListener(deleter);
+                        }
 
                         choosenItem.setText(data[0] + " " + data[1]);
                         addToOrder.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
 
-                                System.out.println(menuList.get(foundItems)[2]);
-
-                                /* Every time I use again action listener it adds new item to the list.
-                                   Below I'm clearing all of Action Listeners.
-                                */
-                                for(ActionListener deleter : addToOrder.getActionListeners()) {
-                                    addToOrder.removeActionListener(deleter);
-                                }
+                                System.out.println(menuList.get(foundItems)[1]);
+                                sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
+                                valueLabel.setText(String.valueOf(sum));
 
 
-                                //dane = menuList.get(foundItems)[3];
-                                //System.out.println(dane);
-
-                                //tableModel.addRow(dane);
-                                //System.out.println(tableModel);
-                                //for(int w = 0; w < dane.length; w++){
-                                   // System.out.println(dane[w]);
-                               // }
+                                tableModel.addRow(data);
 
 
                             }
                         });
                     }
                 }
-
             });
-
         }
 
         public int findItems(String name){
