@@ -1,12 +1,12 @@
 package gui;
 
+import gui.pdf.PdfGenerator;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
-import javax.swing.event.MenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.*;
 
 import static gui.Guest.guest;
-import static gui.Guest.tables_amount;
 
 public class NewOrder  {
     private JPanel panel;
@@ -31,7 +30,7 @@ public class NewOrder  {
     private JButton addToOrder;
     private JLabel valueLabel;
     private JButton removeClient;
-    private JButton button2;
+    private JButton completeOrder;
     public JFrame frame;
     private JScrollPane scrollPane;
     private JLabel chosenItem;
@@ -83,6 +82,13 @@ public class NewOrder  {
             }
         });
 
+        completeOrder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainView.orderCounter++;
+                PdfGenerator pdfGenerator = new PdfGenerator(sum, MainView.orderCounter);
+            }
+        });
     }
         public void newGuest(int number) {
             guest[number] = new Guest(number);

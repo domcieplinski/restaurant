@@ -5,10 +5,16 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class PdfGenerator {
     private String address = "";
-    public PdfGenerator(){
+    public PdfGenerator(double orderValue, int orderCounter){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime now = LocalDateTime.now();
         try{
             String path = "newssss.pdf";
             PdfWriter pdfWriter = new PdfWriter(path);
@@ -16,9 +22,11 @@ public class PdfGenerator {
             pdfDocument.addNewPage();
 
             Document document = new Document(pdfDocument);
-            getInvoiceHeader();
+            getInvoiceHeader(orderValue);
             Paragraph paragraph = new Paragraph(address);
             document.add(paragraph);
+            Paragraph paragraph2 = new Paragraph("Order #" + orderCounter + " " + dtf.format(now));
+            document.add(paragraph2);
 
             document.close();
         }catch(FileNotFoundException e){
@@ -27,8 +35,8 @@ public class PdfGenerator {
 
 
     }
-    private void getInvoiceHeader(){
-        this.address = "Company Name \nStreet 55\n123-123 City";
+    private void getInvoiceHeader(double orderValue){
+        this.address = "Company Name \nStreet 55\n123-123 City\n" + orderValue;
     }
 
 

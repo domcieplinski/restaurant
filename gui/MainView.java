@@ -17,6 +17,8 @@ public class MainView {
     private JButton MenuRestaurant;
     private JButton exitButton;
     private JFrame frame;
+
+    public static int orderCounter = 0;
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
 
 
