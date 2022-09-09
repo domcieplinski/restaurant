@@ -15,11 +15,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 import static gui.Guest.guest;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 public class NewOrder  {
     private JPanel panel;
@@ -75,9 +77,7 @@ public class NewOrder  {
         removeClient.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeGuest(number);
-                sum = 0;
-                tableModel.setRowCount(0);
+                removeClient(number);
 
             }
         });
@@ -85,8 +85,22 @@ public class NewOrder  {
         completeOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainView.orderCounter++;
-                PdfGenerator pdfGenerator = new PdfGenerator(sum, MainView.orderCounter);
+
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to confirm this order?","Warning", YES_NO_OPTION );
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    MainView.orderCounter++;
+                    PdfGenerator pdfGenerator = new PdfGenerator(sum, MainView.orderCounter);
+                    if (Desktop.isDesktopSupported()) {
+                        try {
+                            File myFile = new File("newssss.pdf");
+                            Desktop.getDesktop().open(myFile);
+                        } catch (IOException ex) {
+                            // no application registered for PDFs
+                        }
+                    }
+                    removeClient(number);
+                }
+
             }
         });
     }
@@ -101,6 +115,13 @@ public class NewOrder  {
             frame.add(panel);
             frame.setVisible(true);
 
+        }
+
+        private void removeClient(int number){
+            removeGuest(number);
+            sum = 0;
+            tableModel.setRowCount(0);
+            frame.dispose();
         }
 
         private void createNodes(DefaultMutableTreeNode treeNode){
