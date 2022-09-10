@@ -159,12 +159,13 @@ public class NewOrder  {
                 lines.add(readingMenu.readLine());
                 i = Integer.parseInt(lines.get(0));
 
-                for(int y = 1; y < i; y++){
+                for(int y = 1; y <= i; y++){
                     lines.add(readingMenu.readLine());
                     StringTokenizer token = new StringTokenizer(lines.get(y), "|");
                     String[] word = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                     items = new DefaultMutableTreeNode(word[1]);
                     menuList.add(word);
+                    System.out.println(word[1]);
                     switch(word[2]){
                         case "Pizza":
                             pizza.add(items);
