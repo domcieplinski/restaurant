@@ -165,7 +165,6 @@ public class NewOrder  {
                     String[] word = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
                     items = new DefaultMutableTreeNode(word[1]);
                     menuList.add(word);
-                    System.out.println(word[1]);
                     switch(word[2]){
                         case "Pizza":
                             pizza.add(items);

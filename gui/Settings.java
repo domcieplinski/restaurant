@@ -73,6 +73,15 @@ public class Settings {
                 if(!tax_TextField.getText().isEmpty()){
                     pref.put("tax", tax_TextField.getText());
                 }
+                if(!setCompanyStreet_TextField.getText().isEmpty()){
+                    pref.put("street", setCompanyStreet_TextField.getText());
+                }
+                if(!setCompanyState_TextField.getText().isEmpty()){
+                    pref.put("state", setCompanyState_TextField.getText());
+                }
+                if(!setCompanyZipcode_TextField.getText().isEmpty()){
+                    pref.put("zipcode", setCompanyZipcode_TextField.getText());
+                }
                 showMessageDialog(null, "Restart this application to confirm your changes.");
             }
         });
