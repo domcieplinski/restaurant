@@ -9,14 +9,25 @@ import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
+import gui.Settings;
 
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.prefs.Preferences;
+
+
+
+
 
 public class PdfGenerator {
+    Preferences pref = Preferences.userNodeForPackage(Settings.class);
     private String address = "";
     public PdfGenerator(double orderValue, int orderCounter){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -40,17 +51,18 @@ public class PdfGenerator {
 
             /* Preparing table header to *.pdf document */
             Paragraph paragraph = new Paragraph("INVOICE");
-            paragraph.setMargins(30f,270f, 30f, 60f);
+            paragraph.setMargins(30f,0f, 30f, 80f);
             paragraph.setFontSize(20f);
 
             table.addCell(new Cell().add(paragraph)
-                    .setTextAlignment(TextAlignment.RIGHT)
+                    .setTextAlignment(TextAlignment.LEFT)
                     .setVerticalAlignment(VerticalAlignment.MIDDLE)
                     .setBorder(Border.NO_BORDER)
             );
 
             Paragraph paragraph1 = new Paragraph(address);
             paragraph1.setMarginRight(10f);
+            paragraph1.setFontSize(11f);
 
             table.addCell(new Cell().add(paragraph1)
                     .setTextAlignment(TextAlignment.RIGHT)
@@ -58,8 +70,18 @@ public class PdfGenerator {
                     .setBorder(Border.NO_BORDER)
             );
             /* ---------------------------------------- */
-
             document.add(table);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM");
+            String getMonth = simpleDateFormat.format(new Date());
+            Paragraph paragraph2 = new Paragraph("Order " + orderCounter + "/" + getMonth)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontSize(15f);
+            document.add(paragraph2);
+
+
+            float column2Width[] = {80, 300, 100, 80};
+            Table table2 = new Table(column2Width);
+
 
             document.close();
         }catch(FileNotFoundException e){
@@ -69,8 +91,9 @@ public class PdfGenerator {
 
     }
     private void getInvoiceHeader(){
-        this.address = "Company Name \nStreet 55\n123-123 City\n";
+        this.address = pref.get("title", "root");
     }
+
 
 
 }
