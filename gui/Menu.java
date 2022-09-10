@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.StringTokenizer;
 import java.util.prefs.Preferences;
 
@@ -111,7 +112,7 @@ public class Menu {
             @Override
             public void windowClosed(WindowEvent e) {
                 try {
-                    Collections.sort(line);
+                    Collections.sort(line, new NumericalStringComparator());
                     PrintWriter savingToFile = new PrintWriter(new FileWriter("data.dat", false));
                     savingToFile.append(String.valueOf(i));
                     for(int z = 0; z < i; z++){
@@ -250,5 +251,22 @@ public class Menu {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+    }
+}
+
+/* Arraylist is String, so I made my own comparator,
+   because it has to be sorted by the ID (which is integer).
+*/
+class NumericalStringComparator implements Comparator<String>{
+
+    @Override
+    public int compare(String o1, String o2) {
+        int i1 = Integer.parseInt(o1.split("\\D")[0]);
+        int i2 = Integer.parseInt(o2.split("\\D")[0]);
+        int cmp = Integer.compare(i1, i2);
+        if (cmp != 0) {
+            return cmp;
+        }
+        return o1.compareTo(o2);
     }
 }
