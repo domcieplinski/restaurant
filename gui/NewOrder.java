@@ -39,6 +39,7 @@ public class NewOrder  {
 
     ArrayList<String> lines = new ArrayList<String>();
     ArrayList<String[] > menuList = new ArrayList<String[] >();
+    ArrayList<String[] > orderList = new ArrayList<>();
     private DefaultTableModel tableModel = new DefaultTableModel();
     int i = 0;
     double sum = 0;
@@ -89,7 +90,7 @@ public class NewOrder  {
                 int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to confirm this order?","Warning", YES_NO_OPTION );
                 if(dialogResult == JOptionPane.YES_OPTION){
                     MainView.orderCounter++;
-                    PdfGenerator pdfGenerator = new PdfGenerator(sum, MainView.orderCounter);
+                    PdfGenerator pdfGenerator = new PdfGenerator(sum, MainView.orderCounter, orderList);
                     if (Desktop.isDesktopSupported()) {
                         try {
                             File myFile = new File("newssss.pdf");
@@ -98,7 +99,9 @@ public class NewOrder  {
                             // no application registered for PDFs
                         }
                     }
+
                     removeClient(number);
+
                 }
 
             }
@@ -217,6 +220,11 @@ public class NewOrder  {
                                 sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
                                 valueLabel.setText(String.valueOf(sum));
                                 tableModel.addRow(data);
+                                String one = menuList.get(foundItems)[1];
+                                String two = menuList.get(foundItems)[2];
+                                String three = menuList.get(foundItems)[3];
+                                String[] newList = {one, two, three};
+                                orderList.add(newList);
                             }
                         });
                     }

@@ -1,9 +1,12 @@
 package gui;
 
+import com.google.zxing.WriterException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.prefs.Preferences;
 
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -24,6 +27,8 @@ public class Settings {
     private JTextField setCompanyZipcode_TextField = new JTextField();
     private JLabel taxLabel = new JLabel("Tax value (%) : ");
     private JTextField tax_TextField = new JTextField();
+    private JLabel websiteLabel = new JLabel("Website address : ");
+    private JTextField website_TextField = new JTextField();
     private JPanel panel = new JPanel();
 
     static JFrame frame = new JFrame("Settings");
@@ -37,7 +42,7 @@ public class Settings {
 
         frame.add(panel);
 
-        panel.setLayout( new GridLayout(6, 2) );
+        panel.setLayout( new GridLayout(7, 2) );
         panel.add(setCompanyName_Label);
         panel.add(setCompanyName_TextField);
 
@@ -49,6 +54,9 @@ public class Settings {
 
         panel.add(setCompanyState_Label);
         panel.add(setCompanyState_TextField);
+
+        panel.add(websiteLabel);
+        panel.add(website_TextField);
 
         panel.add(tablesAmount_Label);
         panel.add(tablesAmount_TextField);
@@ -78,6 +86,16 @@ public class Settings {
                 }
                 if(!setCompanyState_TextField.getText().isEmpty()){
                     pref.put("state", setCompanyState_TextField.getText());
+                }
+                if(!website_TextField.getText().isEmpty()){
+                    pref.put("website", website_TextField.getText());
+                    try {
+                        new GenerateQRCode(website_TextField.getText());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (WriterException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
                 if(!setCompanyZipcode_TextField.getText().isEmpty()){
                     pref.put("zipcode", setCompanyZipcode_TextField.getText());
