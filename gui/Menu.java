@@ -190,9 +190,7 @@ public class Menu {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nameField.setText("");
-                priceNet.setText("");
-                priceGross.setText("");
+                cleanFields();
             }
         });
         addButton.addActionListener(new ActionListener() {
@@ -211,10 +209,12 @@ public class Menu {
                     String[] data = {index, name, type, priceNet.getText()};
 
                     line.add(index + "|" + name + "|" + type + "|" + price);
+                    official++;
 
                     showingId.setText(String.valueOf(i+1));
 
                     model.addRow(data);
+                    cleanFields();
 
                 }
 
@@ -233,6 +233,12 @@ public class Menu {
                 }
             }
         });
+    }
+
+    private void cleanFields(){
+        nameField.setText("");
+        priceNet.setText("");
+        priceGross.setText("");
     }
 
     private boolean PriceNetToGross(){

@@ -28,7 +28,10 @@ import java.util.prefs.Preferences;
 
 public class PdfGenerator {
     Preferences pref = Preferences.userNodeForPackage(Settings.class);
-    private String address = "";
+    private String title = pref.get("title", "root");
+    private String street = pref.get("street", "root");
+    private String state = pref.get("state", "root");
+    private String zipcode = pref.get("zipcode", "root");
     public PdfGenerator(double orderValue, int orderCounter){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime now = LocalDateTime.now();
@@ -47,7 +50,6 @@ public class PdfGenerator {
             table.setBackgroundColor(new DeviceRgb(148, 213, 255 ))
                     .setFontColor(new DeviceRgb(255,255,255));
 
-            getInvoiceHeader();
 
             /* Preparing table header to *.pdf document */
             Paragraph paragraph = new Paragraph("INVOICE");
@@ -60,7 +62,7 @@ public class PdfGenerator {
                     .setBorder(Border.NO_BORDER)
             );
 
-            Paragraph paragraph1 = new Paragraph(address);
+            Paragraph paragraph1 = new Paragraph(title + "\n" + street + "\n" + zipcode + " " + state );
             paragraph1.setMarginRight(10f);
             paragraph1.setFontSize(11f);
 
@@ -91,7 +93,7 @@ public class PdfGenerator {
 
     }
     private void getInvoiceHeader(){
-        this.address = pref.get("title", "root");
+       // this.address = pref.get("title", "root");
     }
 
 
