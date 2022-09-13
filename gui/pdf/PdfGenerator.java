@@ -142,6 +142,7 @@ public class PdfGenerator {
                    .add(new Paragraph(orderList.get(i)[2])));
            table2.addCell(new Cell()
                    .add(new Paragraph(orderList.get(i)[2])));
+           table2.setMarginBottom(120);
 
         }
     }
@@ -165,7 +166,7 @@ public class PdfGenerator {
         table3.setBackgroundColor(new DeviceRgb(148, 213,255));
         table3.setFontColor(new DeviceRgb(255,255,255));
         table3.setFixedPosition(pdfDocument.getNumberOfPages(), 30,30,530);
-        
+
     }
 }
 
