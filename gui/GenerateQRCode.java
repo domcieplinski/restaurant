@@ -7,7 +7,6 @@ import java.util.Map;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -20,9 +19,9 @@ public class GenerateQRCode{
         String charset = "UTF-8";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
         //generates QR code with Low level(L) error correction capability
-        hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+        hashMap.put(EncodeHintType.MARGIN, ErrorCorrectionLevel.L);
         //invoking the user-defined method that creates the QR code
-        generateQRcode(website, path, charset, hashMap, 100, 100);//increase or decrease height and width accodingly
+        generateQRcode(website, path, charset, hashMap, 80, 80);//increase or decrease height and width accodingly
     }
     public void generateQRcode (String data, String path, String charset, Map map,int h, int w) throws
             WriterException, IOException

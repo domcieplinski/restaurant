@@ -24,8 +24,10 @@ import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.VerticalAlignment;
 import gui.Settings;
+import org.w3c.dom.css.RGBColor;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,8 +46,15 @@ public class PdfGenerator {
     private String street = pref.get("street", "root");
     private String state = pref.get("state", "root");
     private String zipcode = pref.get("zipcode", "root");
+    private String website = pref.get("website", "root");
     private float column2Width[] = {140, 140, 140, 140};
     private Table table2 = new Table(column2Width);
+    private float column3Width[] = {150,330,80};
+
+    Image img;
+
+
+    private Table table3 = new Table(column3Width);
     public PdfGenerator(double orderValue, int orderCounter, ArrayList<String[]> orderList){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime now = LocalDateTime.now();
@@ -132,8 +141,12 @@ public class PdfGenerator {
             document.add(table2);
             String imageFile = "qr.png";
             ImageData data = ImageDataFactory.create(imageFile);
-            Image img = new Image(data);
+            img = new Image(data);
             document.add(img);
+
+
+            getInvoiceFooter();
+            document.add(table3);
 
 
 
@@ -149,7 +162,6 @@ public class PdfGenerator {
 
     private void makeTable(ArrayList<String[]> orderList){
        for(int i = 0; i < orderList.size(); i++){
-            //String slowo = orderList.get(i)[];
            table2.addCell(new Cell()
                  .add(new Paragraph(orderList.get(i)[0])));
            table2.addCell(new Cell()
@@ -163,11 +175,26 @@ public class PdfGenerator {
 
     }
 
-    private void getInvoiceHeader(){
-       // this.address = pref.get("title", "root");
+    private void getInvoiceFooter(){
+
+
+
+        table3.addCell(new Cell().add(new Paragraph("See you next time!"))
+                .setHeight(70)
+                .setFontSize(15f)
+                .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                .setTextAlignment(TextAlignment.RIGHT)
+                .setBorder(Border.NO_BORDER));
+        table3.addCell(new Cell().add(new Paragraph("Visit us also online :"))
+                .setHeight(70)
+                .setFontSize(15f)
+                .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                .setTextAlignment(TextAlignment.RIGHT)
+                .setBorder(Border.NO_BORDER));
+        table3.addCell(new Cell().add(img.setAutoScale(false))
+                .setBorder(Border.NO_BORDER));
+        table3.setBackgroundColor(new DeviceRgb(148, 213,255));
+        table3.setFontColor(new DeviceRgb(255,255,255));
     }
-
-
-
 }
 
