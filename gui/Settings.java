@@ -76,7 +76,16 @@ public class Settings {
                     pref.put("title", setCompanyName_TextField.getText());
                 }
                 if(!tablesAmount_TextField.getText().isEmpty()){
-                    pref.put("tables_amount", tablesAmount_TextField.getText());
+                    int checking_integer;
+                    try{
+                        checking_integer = Integer.parseInt(tablesAmount_TextField.getText());
+                        pref.put("tables_amount", String.valueOf(checking_integer));
+
+                    }
+                    catch(NumberFormatException s){
+                        showMessageDialog(null, "Value has to be declared in number! Nothing changed!");
+                    }
+
                 }
                 if(!tax_TextField.getText().isEmpty()){
                     pref.put("tax", tax_TextField.getText());

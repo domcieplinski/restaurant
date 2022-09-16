@@ -221,10 +221,10 @@ public class NewOrder  {
                                 sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
                                 valueLabel.setText(String.valueOf(sum));
                                 tableModel.addRow(data);
-                                String one = menuList.get(foundItems)[1];
-                                String two = menuList.get(foundItems)[2];
-                                String three = menuList.get(foundItems)[3];
-                                String[] newList = {one, two, three};
+                                String one_name = menuList.get(foundItems)[1];
+                                String two_type = menuList.get(foundItems)[2];
+                                String three_price = menuList.get(foundItems)[3];
+                                String[] newList = {one_name, two_type, three_price};
                                 orderList.add(newList);
                             }
                         });

@@ -228,6 +228,8 @@ public class Menu {
                     line.remove(table.getSelectedRow());
                     model.removeRow(table.getSelectedRow());
                     i--;
+                    showingId.setText(String.valueOf(i+1));
+                    official--;
 
                     showMessageDialog(null, "Record deleted!");
                 }
