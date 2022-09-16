@@ -101,6 +101,7 @@ public class NewOrder  {
                     }
 
                     removeClient(number);
+                    orderList.clear();
 
                 }
 
