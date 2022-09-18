@@ -55,12 +55,13 @@ public class Menu {
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader("data.dat"));
             String firstLine = bufferedReader.readLine();
-            i = Integer.parseInt(firstLine);
-            official = i+1;
+            official = Integer.parseInt(firstLine);
+            i = official;
+
             boolean status = true;
 
             /* Showing data in table */
-            for(int y = 0; y < i; y++){
+            for(int y = 0; y < official; y++){
                 line.add(bufferedReader.readLine());
                 StringTokenizer token = new StringTokenizer(line.get(y), "|");
                 String[] data = {token.nextToken(), token.nextToken(), token.nextToken(), token.nextToken()};
@@ -70,7 +71,6 @@ public class Menu {
                 }
                 else
                     test = Integer.parseInt(data[0]);
-
 
                 model.addRow(data);
             }
@@ -114,8 +114,8 @@ public class Menu {
                 try {
                     Collections.sort(line, new NumericalStringComparator());
                     PrintWriter savingToFile = new PrintWriter(new FileWriter("data.dat", false));
-                    savingToFile.append(String.valueOf(i));
-                    for(int z = 0; z < i; z++){
+                    savingToFile.append(String.valueOf(official));
+                    for(int z = 0; z < official; z++){
                         savingToFile.append('\n');
                         savingToFile.append(line.get(z));
 
@@ -151,9 +151,9 @@ public class Menu {
         frame.add(jpanel);
         frame.setBounds(200, 200, 600, 400);
         scrollPane.setViewportView(table);
-        System.out.println("offical test to  :" + official);
+        System.out.println("offical test to  :" + i);
 
-        showingId.setText(String.valueOf(official));
+        showingId.setText(String.valueOf(official+1));
 
 
         /* Adding KeyListener for Enter. Inserting new values in "Price net" and clicking Enter
@@ -202,7 +202,7 @@ public class Menu {
                 }
                 else{
                     i++;
-                    String index = String.valueOf(official);
+                    String index = String.valueOf(i);
                     String name = nameField.getText();
                     String type = comboBox.getSelectedItem().toString();
                     Double price = Double.parseDouble(priceNet.getText());
@@ -211,7 +211,7 @@ public class Menu {
                     line.add(index + "|" + name + "|" + type + "|" + price);
                     official++;
 
-                    showingId.setText(String.valueOf(i+1));
+                    showingId.setText(String.valueOf(official+1));
 
                     model.addRow(data);
                     cleanFields();
@@ -225,11 +225,19 @@ public class Menu {
             public void actionPerformed(ActionEvent e) {
                 if (table.getSelectedRow() != -1){
                     //Remove selected row from jTable
+                    String test = line.get(table.getSelectedRow());
+                    StringTokenizer token = new StringTokenizer(test, "|");
+                    String firstToken = token.nextToken();
+                    System.out.println("First token : " + firstToken);
+                    System.out.println("test : " + test);
                     line.remove(table.getSelectedRow());
+
                     model.removeRow(table.getSelectedRow());
+                    i = Integer.parseInt(firstToken);
+                    showingId.setText(String.valueOf(i));
                     i--;
-                    showingId.setText(String.valueOf(i+1));
                     official--;
+
 
                     showMessageDialog(null, "Record deleted!");
                 }

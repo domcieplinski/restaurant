@@ -12,8 +12,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,13 +21,15 @@ import java.util.*;
 
 import static gui.Guest.guest;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class NewOrder  {
     private JPanel panel;
     private JTree menuTree;
     private JTable tableOrderedFood;
     private JLabel titleLabel;
-    private JButton addGuest  = new JButton("Add Guest");
+    private JButton addGuest = new JButton("Add Guest");
+    private JButton removeFromOrder;
     private JButton addToOrder;
     private JLabel valueLabel;
     private JButton removeClient;
@@ -41,6 +42,8 @@ public class NewOrder  {
     ArrayList<String[] > menuList = new ArrayList<String[] >();
     ArrayList<String[] > orderList = new ArrayList<>();
     private DefaultTableModel tableModel = new DefaultTableModel();
+    private int foundItems;
+    private String data[];
     int i = 0;
     double sum = 0;
     String[] finalData;
@@ -105,6 +108,21 @@ public class NewOrder  {
 
                 }
 
+            }
+        });
+        removeFromOrder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (tableOrderedFood.getSelectedRow() != -1){
+                    //Remove selected row from jTable
+                    double valueToRemove = Double.parseDouble(orderList.get(tableModel.getColumnCount())[2]);
+                    orderList.remove(tableOrderedFood.getSelectedRow());
+                    tableModel.removeRow(tableOrderedFood.getSelectedRow());
+                    sum = sum - valueToRemove;
+                    valueLabel.setText(String.valueOf(sum));
+
+                    showMessageDialog(null, "Record deleted!");
+                }
             }
         });
     }
@@ -198,11 +216,13 @@ public class NewOrder  {
             DefaultTreeModel model =(DefaultTreeModel) menuTree.getModel();
             model.setRoot(treeNode);
 
-
+            
             menuTree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+
                 @Override
                 public void valueChanged(TreeSelectionEvent e) {
                     TreePath treePath = e.getPath();
+
 
                     /* Every time I use again action listener it adds new item to the list.
                                    Below I'm clearing all of Action Listeners.
@@ -212,28 +232,34 @@ public class NewOrder  {
                     }
                     int size = e.getNewLeadSelectionPath().getPathCount();
                     if(size == 3){
-                        int foundItems = findItems(String.valueOf(treePath.getLastPathComponent()));
+                        foundItems = findItems(String.valueOf(treePath.getLastPathComponent()));
                         String[] data  = {menuList.get(foundItems)[1], menuList.get(foundItems)[3]};
                         chosenItem.setText(data[0] + " " + data[1]);
-                        addToOrder.addActionListener(new ActionListener() {
+                        addToOrder.addActionListener(new ActionListener()  {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
-                                valueLabel.setText(String.valueOf(sum));
-                                tableModel.addRow(data);
-                                String one_name = menuList.get(foundItems)[1];
-                                String two_type = menuList.get(foundItems)[2];
-                                String three_price = menuList.get(foundItems)[3];
-                                String[] newList = {one_name, two_type, three_price};
-                                orderList.add(newList);
+                                addToOrder(data);
                             }
                         });
+
+
+
                     }
                 }
             });
         }
+        private void addToOrder(String[] data){
+            sum = sum + Double.parseDouble(menuList.get(foundItems)[3]);
+            valueLabel.setText(String.valueOf(sum));
+            tableModel.addRow(data);
+            String one_name = menuList.get(foundItems)[1];
+            String two_type = menuList.get(foundItems)[2];
+            String three_price = menuList.get(foundItems)[3];
+            String[] newList = {one_name, two_type, three_price};
+            orderList.add(newList);
+        }
 
-        public int findItems(String name){
+        private int findItems(String name){
             for(int x = 0; x < menuList.size(); x++){
                 if(menuList.get(x)[1] == name)
                 {
